@@ -1,0 +1,7 @@
+#!/bin/bash
+time_list="time_range_file.txt"
+while IFS= read -r t
+do
+    echo $t
+    sbatch job.sbatch $t
+done < $time_list

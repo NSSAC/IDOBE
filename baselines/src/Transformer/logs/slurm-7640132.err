@@ -1,0 +1,67 @@
+
+EnvironmentNameNotFound: Could not find conda environment: nix
+You can list all discoverable environments with `conda info --envs`.
+
+
+[I 2026-02-02 22:37:31,542] A new study created in memory with name: no-name-6589bf52-14cd-4a51-8063-59f7ed2327ab
+[rank: 0] Seed set to 28513
+[W 2026-02-02 22:37:31,570] Trial 0 failed with parameters: {'input_size': 24, 'learning_rate': 0.00012738474956197073, 'batch_size': 32, 'random_seed': 28513} because of the following error: MisconfigurationException('No supported gpu backend found!').
+Traceback (most recent call last):
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/_optimize.py", line 206, in _run_trial
+    value_or_values = func(trial)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 310, in objective
+    model = self._fit_model(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 347, in _fit_model
+    model = model.fit(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_model.py", line 1924, in fit
+    return self._fit(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_model.py", line 601, in _fit
+    trainer = pl.Trainer(**model.trainer_kwargs)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 417, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 142, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 341, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!
+[W 2026-02-02 22:37:31,573] Trial 0 failed with value None.
+Traceback (most recent call last):
+  File "/sfs/gpfs/tardis/project/bii_nssac/people/aniadiga/forecast/gits/benchmark_MIDAS/baselines/src/Transformer/AutoVanillaTransformer.py", line 253, in <module>
+    processor.create_fixed_model(df_train, df_test_all, test_ids, h=4, freq="W-SAT", level = [10,20,30,40,50,60,70,80, 85,90,95])
+  File "/sfs/gpfs/tardis/project/bii_nssac/people/aniadiga/forecast/gits/benchmark_MIDAS/baselines/src/Transformer/AutoVanillaTransformer.py", line 134, in create_fixed_model
+    nf.fit(df=df_train)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/core.py", line 570, in fit
+    self.models[i] = model.fit(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 403, in fit
+    results = self._optuna_tune_model(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 335, in _optuna_tune_model
+    study.optimize(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/study.py", line 490, in optimize
+    _optimize(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/_optimize.py", line 68, in _optimize
+    _optimize_sequential(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/_optimize.py", line 165, in _optimize_sequential
+    frozen_trial_id = _run_trial(study, func, catch)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/_optimize.py", line 263, in _run_trial
+    raise func_err
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/optuna/study/_optimize.py", line 206, in _run_trial
+    value_or_values = func(trial)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 310, in objective
+    model = self._fit_model(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_auto.py", line 347, in _fit_model
+    model = model.fit(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_model.py", line 1924, in fit
+    return self._fit(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/neuralforecast/common/_base_model.py", line 601, in _fit
+    trainer = pl.Trainer(**model.trainer_kwargs)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/utilities/argparse.py", line 70, in insert_env_defaults
+    return fn(self, **kwargs)
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/trainer.py", line 417, in __init__
+    self._accelerator_connector = _AcceleratorConnector(
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 142, in __init__
+    self._accelerator_flag = self._choose_gpu_accelerator_backend()
+  File "/home/aa5dw/miniforge3/envs/nix/lib/python3.10/site-packages/pytorch_lightning/trainer/connectors/accelerator_connector.py", line 341, in _choose_gpu_accelerator_backend
+    raise MisconfigurationException("No supported gpu backend found!")
+lightning_fabric.utilities.exceptions.MisconfigurationException: No supported gpu backend found!

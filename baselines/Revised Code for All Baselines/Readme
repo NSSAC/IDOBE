@@ -1,0 +1,8 @@
+The code in this folder corresponds to running all available forecasting dates for various methods.
+
+For example, to verify the performance of different methods on the given data. For each method, we forecast for every single valid forecasting date.
+
+Specifically, as statistical methods do not require training, we attempt to forecast all time series in parallel. To achieve this, I created SLURM jobs to run the forecasts in parallel and aggregate the results further.
+We use a concrete example to demonstrate how, for a single time series with 60 timestamps, I test for all available dates. This allows us to use data during [1,t] to forecast [t+1, t+4], where t ranges from 4 to 56. Then we evaluate the performance of the model for each t.
+
+Finally, we summarize the average performance for each method and create the comparison table in the Overleaf doc.
