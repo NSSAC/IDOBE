@@ -1,6 +1,6 @@
 # Raw data
 This folder contains the curated outbreaks time series data `outbreaks_disease_location.csv`. \
-The dataset consists of curated time series for 13 different diseases, across 248 unique locations, and outcomes such as outpatient visits, confirmed cases and hospitalizations. The dataset comprising 10799 outbreaks, is compiled from existing disease data repositories such as Tycho, JHU-CSSE COVID-19 data repository, as well public health surveillance published by US CDC and the National Healthcare Safety Network (NHSN).\
+The dataset consists of curated time series for 13 different diseases, across 248 unique locations, and outcomes such as outpatient visits, confirmed cases and hospitalizations. The dataset comprising 10799 outbreaks, is compiled from existing disease data repositories such as Tycho, JHU-CSSE COVID-19 data repository, as well public health surveillance published by US CDC and the National Healthcare Safety Network (NHSN).
 
 The data dictionary is as follows:
 
