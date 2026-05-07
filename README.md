@@ -7,6 +7,8 @@ IDOBE is a curated collection of epidemiological time series focused on outbreak
 - A suite of trained baseline forecasting models (statistical and DNN models)
 - Evaluation scripts of probabilistic forecasts
 
+## For more information about the dataset and the baselines models, see https://arxiv.org/abs/2604.18521
+
 ## Data
 - `raw_data/outbreaks_disease_location.csv`
 ## Data statistics
