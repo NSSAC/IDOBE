@@ -208,3 +208,6 @@ __marimo__/
 
 relegated/
 .DS_Store
+
+# respiratory pipeline
+respiratory/**/__pycache__/
