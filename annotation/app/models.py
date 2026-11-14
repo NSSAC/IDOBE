@@ -142,3 +142,96 @@ class ModelPrediction(Base):
     run_id: Mapped[int] = mapped_column(ForeignKey("model_runs.id", ondelete="CASCADE"))
     p_outbreak: Mapped[float] = mapped_column(Float)
     uncertainty: Mapped[float] = mapped_column(Float)      # 1 at p = 0.5, 0 at p = 0 or 1
+
+
+# ---------- segment review: experts check where a segmentation method split a full series ----------
+
+SEGMENT_VERDICTS = ("accept", "adjust", "reject", "added")
+
+
+class Series(Base):
+    """A full weekly series, before it is split into outbreaks (pipeline "series" file)."""
+
+    __tablename__ = "series"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    series_key: Mapped[str] = mapped_column(String(255), unique=True, index=True)   # series_id in the files
+    source: Mapped[str | None] = mapped_column(String(128))
+    disease: Mapped[str] = mapped_column(String(128), index=True)
+    location: Mapped[str] = mapped_column(String(128))
+    geo_level: Mapped[str | None] = mapped_column(String(32))
+    event: Mapped[str] = mapped_column(String(64))
+    start_date: Mapped[date] = mapped_column(Date)
+    # Weekly values; value i is for the week ending start_date + 7*i. None = missing week.
+    values: Mapped[list] = mapped_column(JSON)
+    loaded_at: Mapped[datetime] = mapped_column(UTCDateTime, default=utcnow)
+
+
+class SegmentationRun(Base):
+    """One method's output loaded into the app. Experts review one run at a time."""
+
+    __tablename__ = "segmentation_runs"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(128), unique=True)
+    method: Mapped[str] = mapped_column(String(128))
+    method_version: Mapped[str | None] = mapped_column(String(64))
+    source_file: Mapped[str | None] = mapped_column(String(255))
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime, default=utcnow)
+
+
+class RunSeries(Base):
+    """Which series a run covers, including series where the method found no outbreak (experts can
+    still add one there)."""
+
+    __tablename__ = "run_series"
+
+    run_id: Mapped[int] = mapped_column(ForeignKey("segmentation_runs.id", ondelete="CASCADE"), primary_key=True)
+    series_id: Mapped[int] = mapped_column(ForeignKey("series.id", ondelete="CASCADE"), primary_key=True)
+
+
+class ProposedSegment(Base):
+    __tablename__ = "proposed_segments"
+    __table_args__ = (Index("ix_proposed_segments_run_series", "run_id", "series_id"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    run_id: Mapped[int] = mapped_column(ForeignKey("segmentation_runs.id", ondelete="CASCADE"))
+    series_id: Mapped[int] = mapped_column(ForeignKey("series.id", ondelete="CASCADE"))
+    segment_key: Mapped[str] = mapped_column(String(255))     # segment_id in the files
+    start_idx: Mapped[int] = mapped_column(Integer)
+    end_idx: Mapped[int] = mapped_column(Integer)              # inclusive
+    score: Mapped[float | None] = mapped_column(Float)
+    # Optional, for methods that separate the full window from the outbreak proper.
+    peak_idx: Mapped[int | None] = mapped_column(Integer)
+    core_start_idx: Mapped[int | None] = mapped_column(Integer)
+    core_end_idx: Mapped[int | None] = mapped_column(Integer)
+
+
+class SegmentReview(Base):
+    """One expert's review of all proposed segments of one series in one run. Append-only, like
+    Annotation: the current review is the user's row with the highest id.
+
+    `items` holds one entry per decision:
+      {"proposed_id": int | None, "verdict": "accept"|"adjust"|"reject"|"added",
+       "start_idx": int | None, "end_idx": int | None}
+    """
+
+    __tablename__ = "segment_reviews"
+    __table_args__ = (
+        CheckConstraint("confidence IS NULL OR confidence BETWEEN 1 AND 5", name="ck_segment_review_confidence"),
+        Index("ix_segment_reviews_run_series_user", "run_id", "series_id", "user_id", "id"),
+    )
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    run_id: Mapped[int] = mapped_column(ForeignKey("segmentation_runs.id", ondelete="CASCADE"))
+    series_id: Mapped[int] = mapped_column(ForeignKey("series.id", ondelete="CASCADE"))
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
+    items: Mapped[list] = mapped_column(JSON)
+    series_unusable: Mapped[bool] = mapped_column(Boolean, default=False)
+    skipped: Mapped[bool] = mapped_column(Boolean, default=False)
+    confidence: Mapped[int | None] = mapped_column(Integer)
+    comment: Mapped[str | None] = mapped_column(Text)
+    time_spent_ms: Mapped[int | None] = mapped_column(Integer)
+    app_version: Mapped[str | None] = mapped_column(String(32))
+    created_at: Mapped[datetime] = mapped_column(UTCDateTime, default=utcnow)

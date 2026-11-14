@@ -14,6 +14,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY annotation/ .
 COPY raw_data/outbreaks_disease_location.csv /srv/raw_data/outbreaks_disease_location.csv
+COPY pipeline/ /srv/pipeline/
 
 RUN useradd --system --no-create-home app && chown -R app /srv/annotation
 USER app

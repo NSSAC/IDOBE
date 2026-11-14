@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IDOBE segment review</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-basic-dist-min@2.35.2/plotly-basic.min.js"></script>
+</head>
+<body>
+<header class="top">
+  <h1>IDOBE segment review</h1>
+  <div class="who">
+    <span id="who"></span>
+    <a href="/">Outbreak labels</a>
+    <a id="admin-link" href="/admin" hidden>Admin</a>
+    <button class="link" id="logout">Sign out</button>
+  </div>
+</header>
+<main class="wrap">
+  <div class="progress" aria-live="polite">
+    <label for="run" class="run-pick">Segmentation run <select id="run"></select></label>
+    <span id="progress-text"></span>
+    <button id="resume" hidden>Continue reviewing</button>
+  </div>
+  <div class="status" id="status" role="status" aria-atomic="true"></div>
+
+  <section class="card" id="review">
+    <details class="howto">
+      <summary>How to review</summary>
+      <p>The chart shows the <b>whole series</b>. Shaded bands are the outbreak windows the segmentation
+      method proposed. For each one, choose <b>Accept</b> or <b>Reject</b>, or drag a band's edges
+      (or edit its dates below) to fix its start or end; a moved band counts as <b>Adjusted</b>.
+      Use <b>Add missed outbreak</b> for an outbreak the method did not find. If the series cannot be
+      judged (reporting artifacts, too many gaps), tick <b>Series unusable</b>.</p>
+      <p>A window should run from the trough before the rise to the trough after the decline. Darker
+      inner shading, when shown, is the method's onset-to-end estimate; the dotted line is its peak.</p>
+    </details>
+    <div class="notice" id="revisit-notice" hidden></div>
+    <div class="meta" id="meta"></div>
+    <div id="chart" role="img" aria-label="Weekly time series with proposed outbreak windows"></div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="sw pending"></i>Needs a decision</span>
+      <span><i class="sw accept"></i>Accepted / adjusted</span>
+      <span><i class="sw added"></i>Added by you</span>
+      <span><i class="sw reject"></i>Rejected</span>
+    </div>
+
+    <div class="table-wrap seg-table-wrap">
+      <table id="segs">
+        <thead><tr><th>#</th><th>Start (week ending)</th><th>End (week ending)</th><th class="num">Weeks</th><th>Decision</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="row seg-tools">
+      <button id="add">+ Add missed outbreak</button>
+      <button id="accept-rest">Accept all undecided<kbd>A</kbd></button>
+      <label class="check"><input type="checkbox" id="unusable"> Series unusable</label>
+    </div>
+
+    <div class="controls">
+      <div class="row" role="group" aria-label="Confidence">
+        <span class="lbl">Confidence</span>
+        <button class="conf-btn" data-conf="1" aria-pressed="false">1</button>
+        <button class="conf-btn" data-conf="2" aria-pressed="false">2</button>
+        <button class="conf-btn" data-conf="3" aria-pressed="false">3</button>
+        <button class="conf-btn" data-conf="4" aria-pressed="false">4</button>
+        <button class="conf-btn" data-conf="5" aria-pressed="false">5</button>
+        <span class="conf-hint">1 = guess · 5 = certain (keys 1–5)</span>
+      </div>
+      <div>
+        <label class="lbl" for="comment" style="display:block;margin-bottom:4px;color:var(--text-secondary);font-size:14px">Comment (optional)</label>
+        <textarea id="comment" maxlength="5000" placeholder="Anything notable: merged waves, reporting changes, why you moved a boundary…"></textarea>
+      </div>
+      <div class="actions">
+        <div class="row">
+          <button id="skip" title="Skip this series (S)">Skip<kbd>S</kbd></button>
+          <span id="todo" class="conf-hint"></span>
+        </div>
+        <button class="primary" id="submit" disabled>Submit<kbd>Enter</kbd></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card done" id="done" hidden>
+    <h2>All done</h2>
+    <p>There are no more series in this run for you to review right now. Thank you!</p>
+  </section>
+
+  <h2>My segment reviews</h2>
+  <section class="card">
+    <div class="table-wrap" style="max-height:none">
+      <table id="mine"><thead><tr><th>Series</th><th>Disease</th><th>Location</th><th>Decisions</th><th class="num">Conf.</th><th>When</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="pager">
+      <button id="mine-prev">Newer</button><button id="mine-next">Older</button><span id="mine-info"></span>
+    </div>
+  </section>
+</main>
+<script src="/static/segments.js"></script>
+</body>
+</html>

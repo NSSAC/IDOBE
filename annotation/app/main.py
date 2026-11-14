@@ -5,7 +5,7 @@ from starlette.middleware.sessions import SessionMiddleware
 
 from . import __version__
 from .config import ANNOTATION_DIR, settings
-from .routes import admin, annotations, auth, outbreaks
+from .routes import admin, annotations, auth, outbreaks, segments
 
 STATIC_DIR = ANNOTATION_DIR / "app" / "static"
 
@@ -29,7 +29,7 @@ async def security_headers(request: Request, call_next):
     return response
 
 
-for r in (auth.router, outbreaks.router, annotations.router, admin.router):
+for r in (auth.router, outbreaks.router, annotations.router, admin.router, segments.router):
     app.include_router(r)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 app.mount("/guide", StaticFiles(directory=ANNOTATION_DIR / "docs", html=True), name="guide")
@@ -48,6 +48,11 @@ def index():
 @app.get("/login", include_in_schema=False)
 def login_page():
     return FileResponse(STATIC_DIR / "login.html")
+
+
+@app.get("/segments", include_in_schema=False)
+def segments_page():
+    return FileResponse(STATIC_DIR / "segments.html")
 
 
 @app.get("/admin", include_in_schema=False)

@@ -209,3 +209,24 @@ Notes:
 TEST_DATABASE_URL=postgresql://user:pass@localhost/idobe_test .venv/bin/python -m pytest   # against Postgres
 node --test tests/frontend.test.cjs  # Node 18+; workflow checks, no npm install needed
 ```
+
+
+## Segment review
+
+`/segments` shows experts the **whole series** with a segmentation method's proposed outbreak
+windows. For each window the expert accepts, rejects, or drags its edges (or edits its dates) to
+adjust it, and can add outbreaks the method missed or mark the series unusable. Reviews are
+append-only, like outbreak labels, and each series is reviewed by up to `TARGET_ANNOTATIONS` experts.
+
+Load a run (one method's output) with `scripts/load_segments.py`:
+
+```
+python scripts/load_segments.py --legacy                       # current published windows, respiratory series
+python scripts/load_segments.py --series S.csv --segments G.csv --run-name "method X v2"
+python scripts/load_segments.py --series S.csv --method seasonal-threshold
+```
+
+`run_local.sh` loads the legacy respiratory run on first start. Export with
+`scripts/export_segment_reviews.py` (or `/api/seg/export.csv` as an admin); it also writes the expert
+consensus windows that `python -m pipeline.build_benchmark` turns into the benchmark CSV. File
+formats and the method interface are in `../pipeline/README.md`.

@@ -40,11 +40,14 @@ fi
 COUNTS=$(.venv/bin/python -c "
 from sqlalchemy import func, select
 from app.db import SessionLocal
-from app.models import Outbreak, User
+from app.models import Outbreak, SegmentationRun, User
 with SessionLocal() as db:
-    print(db.scalar(select(func.count()).select_from(Outbreak)), db.scalar(select(func.count()).select_from(User)))")
+    print(db.scalar(select(func.count()).select_from(Outbreak)), db.scalar(select(func.count()).select_from(User)),
+          db.scalar(select(func.count()).select_from(SegmentationRun)))")
 set -- $COUNTS
 [ "$1" = "0" ] && .venv/bin/python scripts/load_outbreaks.py
+# Segment review starts with the published (epidemicKabu) windows of the respiratory series.
+[ "$3" = "0" ] && .venv/bin/python scripts/load_segments.py --legacy
 if [ "$2" = "0" ]; then
   echo "Creating an admin account. Note the password, it is shown only once:"
   .venv/bin/python scripts/create_user.py admin --admin --generate
@@ -52,7 +55,7 @@ fi
 
 URL="http://localhost:$PORT"
 echo ""
-echo "Expert annotation app: $URL   (admin page: $URL/admin)"
+echo "Expert annotation app: $URL   (segment review: $URL/segments, admin page: $URL/admin)"
 if [ "$HOST" = "0.0.0.0" ]; then
   IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I 2>/dev/null | cut -d' ' -f1)
   [ -n "$IP" ] && echo "On other devices on this network: http://$IP:$PORT"

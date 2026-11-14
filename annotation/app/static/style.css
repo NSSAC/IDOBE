@@ -157,3 +157,27 @@ tr.inactive td { color: var(--text-muted); }
 td.actions-cell { white-space: nowrap; text-align: right; }
 tr.inline-edit td { background: var(--surface-0); }
 tr.inline-edit input:not([type="checkbox"]) { min-width: 260px; }
+
+/* ---------- segment review ---------- */
+:root { --seg-pending: #2a78d6; --seg-accept: #15803d; --seg-added: #c2410c; --seg-reject: #7a7974; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --seg-pending: #3987e5; --seg-accept: #22c55e; --seg-added: #f97316; --seg-reject: #8f8e86; }
+}
+:root[data-theme="dark"] { --seg-pending: #3987e5; --seg-accept: #22c55e; --seg-added: #f97316; --seg-reject: #8f8e86; }
+.run-pick { display: inline-flex; gap: 6px; align-items: center; margin-right: 12px; color: var(--text-secondary); font-size: 14px; }
+.howto { margin-bottom: 10px; color: var(--text-secondary); font-size: 14px; }
+.howto p { margin: 6px 0; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--text-secondary); margin: 6px 0 10px; }
+.legend .sw { display: inline-block; width: 14px; height: 10px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; opacity: .6; }
+.sw.pending { background: var(--seg-pending); } .sw.accept { background: var(--seg-accept); }
+.sw.added { background: var(--seg-added); } .sw.reject { background: var(--seg-reject); opacity: .3; }
+.seg-table-wrap { max-height: 320px; }
+#segs input[type="date"] { font: inherit; padding: 2px 4px; max-width: 150px; }
+#segs .seg-n { font-weight: 600; }
+#segs tr.reject td:not(:last-child) { color: var(--text-muted); text-decoration: line-through; }
+#segs .decide { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+#segs .decide button { padding: 3px 10px; font-size: 13px; }
+#segs .state { font-size: 13px; color: var(--text-secondary); min-width: 64px; }
+.seg-tools { margin: 10px 0 4px; gap: 10px; }
+.check { display: inline-flex; gap: 6px; align-items: center; font-size: 14px; color: var(--text-secondary); }
+#segs td.too-long { color: var(--danger); font-weight: 600; }

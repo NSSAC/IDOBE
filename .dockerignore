@@ -2,6 +2,8 @@
 *
 !annotation/
 !raw_data/outbreaks_disease_location.csv
+!pipeline/
+pipeline/tests
 annotation/.venv
 annotation/*.db*
 annotation/exports
