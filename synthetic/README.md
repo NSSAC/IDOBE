@@ -56,26 +56,49 @@ validation harness:
   week-to-week noise. A low-rank FPCA reconstruction is too smooth and has
   too-low permutation entropy; a little roughness restores it to the real level.
 
-## Validation results
+## Validation
 
-`validate.py` recomputes all three metric families on real and synthetic tables
-and reports a two-sample Kolmogorov–Smirnov statistic per metric (lower = more
-similar). With the defaults (`--seed 0`, 10 components, roughness 0.04):
+`validate.py` runs three checks. Each is judged against how much two samples
+of **real** data differ from each other (the real-vs-real null), not against a
+fixed cutoff: with ~10,000 rows, even a KS of 0.03 is outside sampling noise.
 
-| metric          | KS stat | quality        |
-|-----------------|---------|----------------|
-| mean (week)     | ~0.03   | tight overlap  |
-| median (week)   | ~0.03   | tight overlap  |
-| variance        | ~0.05   | tight overlap  |
-| skewness        | ~0.06   | tight overlap  |
-| excess kurtosis | ~0.09   | close          |
-| Shannon entropy | ~0.14   | close, see below |
-| permutation ent | ~0.20   | matches in mean, under-dispersed |
+1. **Per-feature KS vs null.** The notebook's seven metrics plus nine features
+   for noise, count structure, length and scale (lag-1 autocorrelation, zero
+   fraction, integer fraction, peak share, SD of week-to-week log change,
+   dispersion index, series length, log total, relative peak position). A
+   feature passes when KS(real, synthetic) is within the 95th percentile of KS
+   between a same-size real subsample and the remaining real rows. Pooled and
+   per stratum (`--by disease` by default).
+2. **Classifier two-sample test.** A gradient-boosted classifier tries to tell
+   real from synthetic (5-fold ROC AUC; 0.5 = indistinguishable), next to the
+   same test on two halves of the real data. Permutation importances name the
+   features that give synthetic data away.
+3. **Memorization.** Nearest-neighbor distance from each synthetic curve to the
+   real curves, against the same distance for held-out real curves. About 5%
+   of synthetic curves should fall below the real 5th percentile; much more
+   suggests copying.
 
-The **shape-moment family matches tightly.** Entropy and permutation entropy match
-in central tendency but are *under-dispersed*: real curves range from very smooth
-to very noisy, while the synthetic ones cluster around the average roughness. This
-is inherent to sampling PCA scores from a single Gaussian.
+```bash
+python synthetic/validate.py \
+    --report synthetic/output/validation_report.csv \
+    --summary synthetic/output/validation_summary.json
+```
+
+Results for the current generator (`--seed 0`, full size, 9,962 rows) are in
+`output/validation_report.csv` and `output/validation_summary.json`:
+
+| check | result | real-vs-real null |
+|-------|--------|-------------------|
+| features within null (pooled) | 2 of 16 (`n_obs`, `log_total`, both copied from real rows) | all |
+| classifier AUC, notebook metrics only | 0.855 | 0.51 |
+| classifier AUC, all features | 0.997 | 0.51 |
+| top giveaway features | integer fraction, zero fraction, week-to-week log change, PE | |
+| synthetic below real NN 5th pct | 0.006 (no copying) | 0.05 |
+
+The shape moments are close in mean but still outside sampling noise; entropy
+and PE are under-dispersed; and the output is continuous where real counts are
+integers, which alone makes it trivially separable. The earlier 100-row run
+(`output/validation_report_100.csv`) used the old pooled KS-only check.
 
 ## Extending this (next fidelity levers)
 
@@ -86,12 +109,14 @@ is inherent to sampling PCA scores from a single Gaussian.
   fitted distributions (e.g. per-disease log-normal `total`, empirical
   `(disease, location, event)` frequencies) if you need to extrapolate beyond the
   observed combinations rather than resample them.
-- **Per-disease validation**: `validate.py` compares pooled distributions; add a
-  `groupby('disease')` loop to check similarity within each disease.
+- **Count observation layer**: round or sample counts (Poisson / negative
+  binomial) for count-valued series; this is the largest single giveaway.
 
 ## Files
 
 - `generator.py` — the `SyntheticOutbreakGenerator` model (fit / sample).
 - `generate.py` — CLI that fits on the real table and writes a synthetic CSV.
-- `validate.py` — recomputes entropy / PE / shape moments and compares via KS.
-- `output/validation_report.csv` — the comparison table from the latest run.
+- `validate.py` — per-feature KS against a real-vs-real null (pooled and per
+  disease), classifier two-sample test, and memorization check.
+- `output/validation_report.csv` — per-stratum, per-metric table from the latest run.
+- `output/validation_summary.json` — classifier and memorization results.
