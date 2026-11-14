@@ -1,0 +1,19 @@
+group,method,series,years,outbreaks,legacy_cuts,legacy_cuts_matched,new_cuts,new_cuts_in_legacy_window,outbreaks_per_year,legacy_recall,legacy_precision
+historical (Tycho),epidemicKabu k=18d,183,3975.565,13226,5889,5517,12744,6019,3.327,0.937,0.472
+historical (Tycho),epidemicKabu k=28d,183,3975.565,8863,5889,5694,8337,5729,2.229,0.967,0.687
+historical (Tycho),prominence v0.1,183,3975.565,4494,5889,2819,4299,2821,1.13,0.479,0.656
+COVID-19 cases,epidemicKabu k=18d,191,483.959,1231,730,715,1040,738,2.544,0.979,0.71
+COVID-19 cases,epidemicKabu k=28d,191,483.959,998,730,718,807,721,2.062,0.984,0.893
+COVID-19 cases,prominence v0.1,191,483.959,730,730,516,539,516,1.508,0.707,0.957
+COVID-19 hospitalizations,epidemicKabu k=18d,56,238.827,601,403,399,545,408,2.516,0.99,0.749
+COVID-19 hospitalizations,epidemicKabu k=28d,56,238.827,492,403,398,436,398,2.06,0.988,0.913
+COVID-19 hospitalizations,prominence v0.1,56,238.827,367,403,299,311,299,1.537,0.742,0.961
+ILI,epidemicKabu k=18d,54,475.987,1315,579,563,1216,592,2.763,0.972,0.487
+ILI,epidemicKabu k=28d,54,475.987,969,579,568,878,569,2.036,0.981,0.648
+ILI,prominence v0.1,54,475.987,522,579,301,468,301,1.097,0.52,0.643
+INFLUENZA,epidemicKabu k=18d,54,187.965,556,235,230,494,251,2.958,0.979,0.508
+INFLUENZA,epidemicKabu k=28d,54,187.965,385,235,232,322,233,2.048,0.987,0.724
+INFLUENZA,prominence v0.1,54,187.965,232,235,132,178,132,1.234,0.562,0.742
+RSV,epidemicKabu k=18d,12,13.53,24,8,5,12,6,1.774,0.625,0.5
+RSV,epidemicKabu k=28d,12,13.53,20,8,7,8,7,1.478,0.875,0.875
+RSV,prominence v0.1,12,13.53,14,8,2,2,2,1.035,0.25,1.0
