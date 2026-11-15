@@ -1,0 +1,10 @@
+level,method,true,predicted,matched,mean_peak_error_days,recall,precision
+~500/wk peaks,epidemicKabu k=18d,1921,2545,1920,3.739,0.999,0.754
+~500/wk peaks,epidemicKabu k=28d,1921,2068,1900,4.696,0.989,0.919
+~500/wk peaks,prominence v0.1,1921,1872,1872,4.121,0.974,1.0
+~50/wk peaks,epidemicKabu k=18d,1951,2801,1948,5.029,0.998,0.695
+~50/wk peaks,epidemicKabu k=28d,1951,2188,1936,5.284,0.992,0.885
+~50/wk peaks,prominence v0.1,1951,1890,1887,5.063,0.967,0.998
+~5/wk peaks,epidemicKabu k=18d,1910,3025,1788,8.597,0.936,0.591
+~5/wk peaks,epidemicKabu k=28d,1910,2329,1844,7.976,0.965,0.792
+~5/wk peaks,prominence v0.1,1910,1769,1703,8.14,0.892,0.963
