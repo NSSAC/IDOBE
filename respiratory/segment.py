@@ -93,9 +93,6 @@ def contiguous_runs(values: np.ndarray, max_gap: int = MAX_GAP) -> list[tuple[in
     return list(zip(starts.tolist(), ends.tolist()))
 
 
-COVID_REL_PROMINENCE = 0.05  # lower than WEEKLY's 0.15 so that every COVID-19 wave is split out
-
-
 def prominence(values: np.ndarray, count_like: bool, covid: bool = False) -> list[Segment]:
     """Onset-to-end outbreaks from the prominence segmenter in `segmentation/` (weekly preset).
 
@@ -105,12 +102,10 @@ def prominence(values: np.ndarray, count_like: bool, covid: bool = False) -> lis
 
     With the WEEKLY preset, a large wave sets the local scale and smaller neighbouring COVID-19 waves
     are merged into it (in JHU national cases, summer 2020 with winter 2020-21, and Delta with Omicron).
-    COVID-19 series therefore use rel_prominence = COVID_REL_PROMINENCE."""
-    from dataclasses import replace
+    COVID-19 series therefore use the COVID_WEEKLY preset (rel_prominence 0.05)."""
+    from segmentation import COVID_WEEKLY, WEEKLY, ProminenceSegmenter
 
-    from segmentation import WEEKLY, ProminenceSegmenter
-
-    params = replace(WEEKLY, rel_prominence=COVID_REL_PROMINENCE) if covid else WEEKLY
+    params = COVID_WEEKLY if covid else WEEKLY
 
     dates = pd.date_range("2000-01-01", periods=len(values), freq="7D")  # runs are already gap-free
     return [Segment(s.onset, s.offset, s.peak, s.score)

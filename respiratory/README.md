@@ -77,7 +77,7 @@ conventions Srini set on 2026-11-15:
   baseline weeks are not counted in `duration`. They appear only as the 4 weeks of context padding.
 - Every wave is its own outbreak, including each COVID-19 wave. With WEEKLY's `rel_prominence = 0.15`,
   a large COVID-19 wave hides smaller neighbouring ones (in JHU national cases, summer 2020 merged into
-  winter 2020-21 and Delta into Omicron), so COVID-19 series use `rel_prominence = 0.05`. That gives six
+  winter 2020-21 and Delta into Omicron), so COVID-19 series use the `COVID_WEEKLY` preset (`rel_prominence = 0.05`). That gives six
   separate waves in JHU national cases and eleven in NHSN national COVID-19 admissions.
 - Outbreaks with an onset-to-end length outside 8 to 51 weeks are dropped.
 
