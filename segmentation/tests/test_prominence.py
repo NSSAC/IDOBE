@@ -115,3 +115,26 @@ def test_quiet_period_rarely_has_false_outbreaks():
         assert len(segs) >= 2
         extra += len(segs) - 2
     assert extra / (30 * 4.8) < 0.15, f"{extra} false outbreaks in 144 quiet years"
+
+
+def test_outbreak_rows_onset_to_end_with_padding():
+    from segmentation.outbreaks import segment_to_outbreaks
+
+    dates, y, _ = make_series(THREE, 900)
+    df = segment_to_outbreaks(dates, y)
+    assert len(df) == 3
+    for _, r in df.iterrows():
+        n_vals = r[[str(i) for i in range(60)]].notna().sum()
+        span = (pd.Timestamp(r.end_date) - pd.Timestamp(r.start_date)).days // 7 + 1
+        assert n_vals == span
+        assert n_vals == r.duration + 9  # 4 weeks before onset + core (duration + 1) + 4 after offset
+        assert (pd.Timestamp(r.onset_date) - pd.Timestamp(r.start_date)).days == 28
+        assert 8 <= r.duration <= 51
+
+
+def test_outbreak_rows_exclude_long_baseline():
+    from segmentation.outbreaks import segment_to_outbreaks
+
+    dates, y, _ = make_series([Wave(400, 100, 15, 20)], 600)
+    (r,) = segment_to_outbreaks(dates, y).itertuples()
+    assert (pd.Timestamp(r.peak_date) - pd.Timestamp(r.start_date)).days < 100  # no 50-week flat lead-in

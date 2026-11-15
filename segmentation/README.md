@@ -23,6 +23,22 @@ Each `Segment` has:
 | `peak` | peak of the smoothed curve |
 | `score` | peak prominence divided by the local scale (higher = clearer outbreak) |
 
+## Outbreak rows (decided conventions)
+
+`segmentation.outbreaks.segment_to_outbreaks(dates, values)` returns rows in the released
+wide schema (plus `onset_date`, `peak_date`, `offset_date`, `score`, `method`,
+`method_version`):
+
+- an outbreak runs **onset to offset** (baseline weeks excluded);
+- **4 weeks of context padding** before the onset and after the offset, clipped at series
+  edges; `start_date`/`end_date` are the padded bounds, `duration` excludes the padding, so a
+  full row has `duration + 9` values, as in the released CSV;
+- **every wave is its own outbreak**, including COVID-19;
+- outbreaks with `duration` outside 8 to 51 weeks are dropped (configurable).
+
+On the series rebuilt from the released CSV this keeps about 95% of detected outbreaks; median
+core duration is 15 weeks for COVID-19 and 29 for ILI (legacy trough-to-trough: 24 and 28).
+
 ## Method
 
 Per contiguous run of observations (short gaps interpolated, long gaps split the series):
