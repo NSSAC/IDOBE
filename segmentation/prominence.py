@@ -38,7 +38,7 @@ All indices returned refer to positions in the arrays passed to ``segment``.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass, field, replace
 from typing import Optional, Sequence
 
 import numpy as np
@@ -46,7 +46,7 @@ import pandas as pd
 from scipy.ndimage import gaussian_filter1d, maximum_filter1d
 from scipy.signal import find_peaks
 
-__all__ = ["Segment", "ProminenceParams", "ProminenceSegmenter", "WEEKLY", "DAILY"]
+__all__ = ["Segment", "ProminenceParams", "ProminenceSegmenter", "WEEKLY", "DAILY", "COVID_WEEKLY", "COVID_DAILY"]
 
 
 @dataclass(frozen=True)
@@ -78,6 +78,12 @@ class ProminenceParams:
 # Starting points per cadence; to be tuned on expert labels.
 WEEKLY = ProminenceParams()
 DAILY = ProminenceParams(smooth_sigma_days=10.5, max_gap_days=7.0, min_run_points=56)
+# COVID-19: every wave is its own outbreak, and a large wave must not hide a smaller
+# neighbour (summer 2020 next to winter 2020-21, Delta next to Omicron). On the
+# released COVID series this keeps 90-94% of interior cuts inside legacy boundary
+# windows; on seasonal ILI it would over-split seasons, so use it for COVID only.
+COVID_WEEKLY = replace(WEEKLY, rel_prominence=0.05)
+COVID_DAILY = replace(DAILY, rel_prominence=0.05)
 
 
 _TRANSFORMS = {

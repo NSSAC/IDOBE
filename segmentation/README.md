@@ -9,7 +9,7 @@ parameters not yet tuned on expert labels. The released CSV is unchanged.
 ```python
 from segmentation import ProminenceSegmenter, WEEKLY, DAILY
 
-seg = ProminenceSegmenter(WEEKLY)          # or DAILY, or ProminenceParams(...)
+seg = ProminenceSegmenter(WEEKLY)          # or DAILY, COVID_WEEKLY, COVID_DAILY, or ProminenceParams(...)
 segments = seg.segment(dates, values)      # list[Segment], indices into the inputs
 frame = seg.segment_frame(dates, values)   # same, as a DataFrame with dates
 ```
@@ -38,6 +38,13 @@ wide schema (plus `onset_date`, `peak_date`, `offset_date`, `score`, `method`,
 
 On the series rebuilt from the released CSV this keeps about 95% of detected outbreaks; median
 core duration is 15 weeks for COVID-19 and 29 for ILI (legacy trough-to-trough: 24 and 28).
+
+## Presets
+
+`WEEKLY`/`DAILY` suit seasonal pathogens (ILI, flu, RSV). `COVID_WEEKLY`/`COVID_DAILY` lower
+`rel_prominence` to 0.05 so a big COVID-19 wave does not hide a smaller neighbour (each wave is
+its own outbreak). Do not use the COVID presets on seasonal series: on ILI they split a season
+into ~1.7 outbreaks per year.
 
 ## Method
 

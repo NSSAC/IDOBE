@@ -138,3 +138,12 @@ def test_outbreak_rows_exclude_long_baseline():
     dates, y, _ = make_series([Wave(400, 100, 15, 20)], 600)
     (r,) = segment_to_outbreaks(dates, y).itertuples()
     assert (pd.Timestamp(r.peak_date) - pd.Timestamp(r.start_date)).days < 100  # no 50-week flat lead-in
+
+
+def test_covid_preset_separates_small_wave_next_to_big_one():
+    from segmentation import COVID_WEEKLY
+
+    waves = [Wave(150, 100, 15, 25), Wave(262, 1000, 20, 25)]  # small wave 16 weeks before a 10x bigger one
+    dates, y, _ = make_series(waves, 500)
+    assert len(ProminenceSegmenter(WEEKLY).segment(dates, y)) == 1  # the seasonal preset merges them
+    assert len(ProminenceSegmenter(COVID_WEEKLY).segment(dates, y)) == 2
