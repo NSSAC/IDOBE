@@ -2,7 +2,7 @@
 package, branch claude/project-thread-qkwbum). Registered only when that package is importable.
 
 Its Segment has trough-to-trough start/end plus onset/offset. IDOBE outbreaks run onset to offset
-(decided 2026-11-15), so the window experts review is onset..offset; trough bounds are kept in
+(decided 2026-11-15) and each wave is its own outbreak, so the window experts review is onset..offset; trough bounds are kept in
 `info`. Padding is added later, by build_benchmark.
 """
 
@@ -14,14 +14,23 @@ from .base import Segment, Segmenter
 
 
 class Prominence(Segmenter):
+    """Uses the COVID_WEEKLY preset for COVID-19 series (lower prominence threshold, so a small
+    wave next to a large one stays its own outbreak) and WEEKLY for everything else."""
+
     name = "prominence"
 
     def __init__(self, **params):
-        from segmentation import WEEKLY, ProminenceSegmenter  # noqa: PLC0415  (optional dependency)
+        import segmentation as pkg  # noqa: PLC0415  (optional dependency)
         from dataclasses import replace
-        self._seg = ProminenceSegmenter(replace(WEEKLY, **params) if params else WEEKLY)
-        self.version = self._seg.version
+        weekly = pkg.WEEKLY
+        covid = getattr(pkg, "COVID_WEEKLY", weekly)
+        mk = lambda preset: pkg.ProminenceSegmenter(replace(preset, **params) if params else preset)  # noqa: E731
+        self._default, self._covid = mk(weekly), mk(covid)
+        self.version = self._default.version
         super().__init__(**params)
+
+    def _for(self, disease: str):
+        return self._covid if "COVID" in (disease or "").upper() else self._default
 
     def segment(self, values, *, event="", disease=""):
         # The prominence segmenter wants dates; any weekly grid works for index output.
@@ -29,4 +38,4 @@ class Prominence(Segmenter):
         vals = [float("nan") if v is None else float(v) for v in values]
         return [Segment(s.onset, s.offset, float(s.score), peak=s.peak,
                         info={"trough_start": s.start, "trough_end": s.end})
-                for s in self._seg.segment(dates, vals)]
+                for s in self._for(disease).segment(dates, vals)]

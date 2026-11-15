@@ -163,3 +163,12 @@ def test_prominence_adapter_if_available():
     assert len(segs) == 4
     for k, s in enumerate(segs):
         assert s.start < 52 * k + 26 < s.end and "trough_start" in s.info
+
+
+def test_prominence_uses_covid_preset_for_covid():
+    pkg = pytest.importorskip("segmentation")
+    if not hasattr(pkg, "COVID_WEEKLY"):
+        pytest.skip("segmentation package has no COVID preset")
+    seg = get_segmenter("prominence")
+    assert seg._for("COVID-19") is seg._covid and seg._for("ILI") is seg._default
+    assert seg._covid.params.rel_prominence < seg._default.params.rel_prominence
