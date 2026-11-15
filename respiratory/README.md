@@ -26,7 +26,7 @@ Notes on the sources:
 
 ## Pipeline
 
-Run from the repository root. Needs `pandas`, `numpy`, `requests`.
+Run from the repository root. Needs `pandas`, `numpy`, `requests`, `scipy`.
 
 ```
 python -m respiratory.fetch            # 1. download raw pulls        -> data/raw/<source>/<as_of>/
@@ -49,14 +49,15 @@ Each raw pull is stored under the date the source was last updated and old pulls
   left empty.
 - `series_index.csv`: one row per series with its coverage.
 - `segments.csv`: `series_id`, `segment_id`, `method`, `method_version`, `start_date`, `end_date`,
-  `peak_date`, `score`. Dates are the core outbreak, without padding.
+  `peak_date`, `score`. `start_date` and `end_date` are the onset and end of the core outbreak, without
+  padding.
 - `outbreaks_respiratory.csv`: the benchmark file, with exactly the columns of
   `raw_data/outbreaks_disease_location.csv` (`unique_id`, `disease`, `location`, `event`, `start_date`,
   `end_date`, `duration`, `total`, `0`..`59`). `unique_id` starts at 100001.
 - `outbreaks_respiratory_meta.csv`: one row per `unique_id` with `series_id`, `segment_id`, `source`,
   `geo_level`, `location_fips`, `target`, core start, end and peak dates, `season` (July 1 boundary, by
-  peak week), `holdout` (seasons 2024-25 and 2025-26), `truncated` (the outbreak touches the start or
-  end of its series, so it may be incomplete), `n_interpolated`, method and `as_of`.
+  peak week), `holdout` (seasons 2024-25 and 2025-26), `truncated` (the context padding was cut short by
+  the start or end of the series or by a reporting gap, so the outbreak may be incomplete), `n_interpolated`, method and `as_of`.
 - `legacy_respiratory_outbreaks.csv`: the COVID-19, influenza, ILI and RSV rows of the original dataset,
   copied unchanged. They are not merged into the new file because the same sources are re-derived here.
 
@@ -67,11 +68,20 @@ series or at a reporting gap. `start_date` and `end_date` are the first and last
 `duration` is the core length in weeks (8 to 51) and excludes the padding. `total` is the sum of the row.
 Gaps of up to 2 weeks inside a row are linearly interpolated.
 
-## Segmentation (provisional)
+## Segmentation
 
-The original IDOBE used the EpidemicKabu toolbox, whose smoothing bandwidth and threshold were not
-published. The default here, `gaussian_valley` in `segment.py`, smooths each series with a Gaussian
-kernel (sigma 3 weeks) and cuts at local minima of the smoothed curve, then keeps segments of 8 to 51
-weeks whose peak rises at least 10% above both bounding valleys and, for counts, reaches 10 in a week.
-With sigma 3 it places 97 to 99% of segment starts within two weeks of the original dataset's starts for
-state-level NHSN hospitalizations. It is a stand-in until the segmentation method is revisited.
+`segment.py` uses the prominence segmenter from `segmentation/` (WEEKLY preset) by default, following the
+conventions Srini set on 2026-11-15:
+
+- An outbreak runs from onset to end (the segmenter's onset and offset), not trough to trough, so flat
+  baseline weeks are not counted in `duration`. They appear only as the 4 weeks of context padding.
+- Every wave is its own outbreak, including each COVID-19 wave. With WEEKLY's `rel_prominence = 0.15`,
+  a large COVID-19 wave hides smaller neighbouring ones (in JHU national cases, summer 2020 merged into
+  winter 2020-21 and Delta into Omicron), so COVID-19 series use `rel_prominence = 0.05`. That gives six
+  separate waves in JHU national cases and eleven in NHSN national COVID-19 admissions.
+- Outbreaks with an onset-to-end length outside 8 to 51 weeks are dropped.
+
+The earlier trough-to-trough stand-in, `gaussian_valley`, is still available with
+`python -m respiratory.segment --method gaussian_valley`.
+
+Needs `scipy` for the prominence segmenter.

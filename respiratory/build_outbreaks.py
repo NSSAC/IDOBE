@@ -65,7 +65,9 @@ def main() -> None:
             "source": first["source"], "geo_level": first["geo_level"], "location_fips": first["location_fips"],
             "target": first["target"], "core_start_date": seg.start_date, "core_end_date": seg.end_date,
             "peak_date": seg.peak_date, "season": season_of(peak), "holdout": season_of(peak) in HOLDOUT_SEASONS,
-            "truncated": bool(a == 0 or b == len(dates) - 1 or np.isnan(g["value"].to_numpy(float)[[a, b]]).any()),
+            # padding cut short: the outbreak sits at the start or end of its series or next to a reporting
+            # gap, so it may be incomplete
+            "truncated": bool(a - lo < PAD or hi - b < PAD),
             "n_interpolated": int(vals.isna().sum()), "method": seg.method, "method_version": seg.method_version,
             "as_of": first["as_of"],
         })

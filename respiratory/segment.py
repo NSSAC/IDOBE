@@ -8,14 +8,14 @@ Input : respiratory/data/series_long.csv.gz
 Output: respiratory/data/segments.csv with one row per segment:
     series_id, segment_id, method, method_version, start_date, end_date, peak_date, score
 
-To plug in a different splitter, write a function `f(values, count_like) -> list[Segment]` and add it
+To plug in a different splitter, write a function `f(values, count_like, covid=False) -> list[Segment]` and add it
 to SEGMENTERS. `values` is the full weekly series (NaN where missing). Returning an empty list is fine.
 Nothing upstream (fetch, build_series) or downstream (build_outbreaks) needs to change.
 
-The default, `gaussian_valley`, is a documented stand-in for the EpidemicKabu-based splitting used for
-the original IDOBE (Gaussian smoothing, cut at valleys of the smoothed curve, keep 8-51 week
-segments). The original smoothing bandwidth and curvature threshold were not published, so this is
-not a bit-for-bit reproduction, and the method is expected to be replaced.
+The default, `prominence`, is the segmenter chosen in the segmentation rework (package `segmentation/`).
+Outbreaks run from onset to end (offset); each wave is its own outbreak; 4 weeks of context padding are
+added later by build_outbreaks. `gaussian_valley` is the earlier trough-to-trough stand-in for the
+EpidemicKabu splitting of the original IDOBE and is kept for comparison.
 """
 from __future__ import annotations
 
@@ -34,8 +34,8 @@ MIN_WEEKS, MAX_WEEKS = 8, 51  # same bounds as the original dataset (51 + paddin
 
 @dataclass
 class Segment:
-    start: int                     # index of first week of the core outbreak (a valley)
-    end: int                       # index of last week of the core outbreak (the next valley), inclusive
+    start: int                     # index of first week of the core outbreak (onset)
+    end: int                       # index of last week of the core outbreak (end), inclusive
     peak: int | None = None        # index of the peak week
     score: float | None = None     # optional method-specific confidence
 
@@ -93,25 +93,58 @@ def contiguous_runs(values: np.ndarray, max_gap: int = MAX_GAP) -> list[tuple[in
     return list(zip(starts.tolist(), ends.tolist()))
 
 
-SEGMENTERS: dict[str, tuple[str, Callable[[np.ndarray, bool], list[Segment]]]] = {
+COVID_REL_PROMINENCE = 0.05  # lower than WEEKLY's 0.15 so that every COVID-19 wave is split out
+
+
+def prominence(values: np.ndarray, count_like: bool, covid: bool = False) -> list[Segment]:
+    """Onset-to-end outbreaks from the prominence segmenter in `segmentation/` (weekly preset).
+
+    The core of each outbreak runs from onset to offset, so flat baseline weeks are left out of
+    `duration` and only appear as context padding. Every wave, including each COVID-19 wave, is its own
+    outbreak. Trough-to-trough bounds are not used here.
+
+    With the WEEKLY preset, a large wave sets the local scale and smaller neighbouring COVID-19 waves
+    are merged into it (in JHU national cases, summer 2020 with winter 2020-21, and Delta with Omicron).
+    COVID-19 series therefore use rel_prominence = COVID_REL_PROMINENCE."""
+    from dataclasses import replace
+
+    from segmentation import WEEKLY, ProminenceSegmenter
+
+    params = replace(WEEKLY, rel_prominence=COVID_REL_PROMINENCE) if covid else WEEKLY
+
+    dates = pd.date_range("2000-01-01", periods=len(values), freq="7D")  # runs are already gap-free
+    return [Segment(s.onset, s.offset, s.peak, s.score)
+            for s in ProminenceSegmenter(params).segment(dates, values)
+            if MIN_WEEKS <= s.offset - s.onset <= MAX_WEEKS]
+
+
+def _prominence_version() -> str:
+    from segmentation import ProminenceSegmenter
+    return ProminenceSegmenter().version
+
+
+SEGMENTERS: dict[str, tuple[Callable[[], str], Callable[..., list[Segment]]]] = {
     # name: (version, function)
-    "gaussian_valley": ("0.1", gaussian_valley),
+    "prominence": (_prominence_version, prominence),
+    "gaussian_valley": (lambda: "0.1", lambda v, c, covid=False: gaussian_valley(v, c)),
 }
 COUNT_EVENTS = {"CASES", "DEATHS", "HOSPITALIZATIONS"}
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--method", default="gaussian_valley", choices=sorted(SEGMENTERS))
+    ap.add_argument("--method", default="prominence", choices=sorted(SEGMENTERS))
     args = ap.parse_args()
-    version, fn = SEGMENTERS[args.method]
-    series = pd.read_csv(DATA / "series_long.csv.gz", usecols=["series_id", "event", "date", "value"])
+    version_fn, fn = SEGMENTERS[args.method]
+    version = version_fn()
+    series = pd.read_csv(DATA / "series_long.csv.gz", usecols=["series_id", "disease", "event", "date", "value"])
     rows = []
     for sid, g in series.groupby("series_id", sort=True):
         dates, values = g["date"].to_numpy(), g["value"].to_numpy(float)
         count_like, k = g["event"].iloc[0] in COUNT_EVENTS, 0
+        covid = g["disease"].iloc[0] == "COVID-19"
         for lo, hi in contiguous_runs(values):
-            for s in fn(values[lo:hi + 1], count_like):
+            for s in fn(values[lo:hi + 1], count_like, covid=covid):
                 rows.append({"series_id": sid, "segment_id": f"{sid}#{k:02d}", "method": args.method,
                              "method_version": version, "start_date": dates[lo + s.start],
                              "end_date": dates[lo + s.end],
