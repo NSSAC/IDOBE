@@ -10,6 +10,9 @@ const EVENT_AXIS = {
 };
 const STATE_TEXT = { pending: "Undecided", accept: "Accepted", adjust: "Adjusted", reject: "Rejected", added: "Added" };
 const MINE_PAGE = 25;
+// IDOBE outbreaks run onset to offset; benchmark rows add this many context weeks each side.
+const CONTEXT_WEEKS = 4;
+const MIN_WEEKS = 8, MAX_WEEKS = 51;   // allowed duration (offset - onset)
 const DAY = 86400000;
 
 const state = {
@@ -144,6 +147,12 @@ function shapesAndNotes() {
       line: { color: c, width: 1.5, dash: st === "pending" ? "dash" : "solid" },
       name: `seg-${k}`,
     });
+    if (st !== "reject") {
+      const [cx0] = bandX(Math.max(0, it.start_idx - CONTEXT_WEEKS), it.start_idx);
+      const [, cx1] = bandX(it.end_idx, Math.min(nWeeks() - 1, it.end_idx + CONTEXT_WEEKS));
+      shapes.push({ type: "rect", xref: "x", yref: "paper", x0: cx0, x1: cx1, y0: 0, y1: 1, editable: false,
+        fillcolor: c, opacity: 0.08, layer: "below", line: { width: 0 } });
+    }
     const p = it.proposal;
     if (p && st !== "reject") {
       if (p.core_start_idx !== null && p.core_end_idx !== null) {
@@ -282,11 +291,16 @@ function renderTable() {
       el("td", { className: "seg-n" }, sw, String(k + 1)),
       el("td", {}, dateInput(it, "start")),
       el("td", {}, dateInput(it, "end")),
-      el("td", { className: `num${it.end_idx - it.start_idx + 1 > 60 ? " too-long" : ""}`,
-        textContent: String(it.end_idx - it.start_idx + 1),
-        title: it.end_idx - it.start_idx + 1 > 60 ? "Longer than the 60 weeks a benchmark row can hold; split it if it covers several waves." : "" }),
+      el("td", { className: `num${outOfRange(it) ? " too-long" : ""}`,
+        textContent: String(it.end_idx - it.start_idx),
+        title: outOfRange(it) ? `Outside ${MIN_WEEKS}–${MAX_WEEKS} weeks, so it would not become a benchmark row. Split a window that covers several waves.` : "" }),
       el("td", {}, decide));
   }));
+}
+
+function outOfRange(it) {
+  const d = it.end_idx - it.start_idx;
+  return itemState(it) !== "reject" && (d < MIN_WEEKS || d > MAX_WEEKS);
 }
 
 function undecided() { return state.items.filter((it) => itemState(it) === "pending").length; }

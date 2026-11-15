@@ -34,8 +34,11 @@
       (or edit its dates below) to fix its start or end; a moved band counts as <b>Adjusted</b>.
       Use <b>Add missed outbreak</b> for an outbreak the method did not find. If the series cannot be
       judged (reporting artifacts, too many gaps), tick <b>Series unusable</b>.</p>
-      <p>A window should run from the trough before the rise to the trough after the decline. Darker
-      inner shading, when shown, is the method's onset-to-end estimate; the dotted line is its peak.</p>
+      <p>A window is one outbreak, from its <b>onset</b> (first week clearly above baseline) to its
+      <b>end</b> (last such week). Each wave is its own outbreak, including COVID-19 waves: split a
+      window that covers two waves by adjusting it and adding the second. The faint shading either
+      side is the 4 weeks of context stored with each outbreak; the dotted line is the method's peak.
+      Durations outside 8–51 weeks are shown in red and will not become benchmark rows.</p>
     </details>
     <div class="notice" id="revisit-notice" hidden></div>
     <div class="meta" id="meta"></div>
@@ -49,7 +52,7 @@
 
     <div class="table-wrap seg-table-wrap">
       <table id="segs">
-        <thead><tr><th>#</th><th>Start (week ending)</th><th>End (week ending)</th><th class="num">Weeks</th><th>Decision</th></tr></thead>
+        <thead><tr><th>#</th><th>Start (week ending)</th><th>End (week ending)</th><th class="num">Duration (wk)</th><th>Decision</th></tr></thead>
         <tbody></tbody>
       </table>
     </div>

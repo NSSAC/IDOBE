@@ -7,6 +7,13 @@ METHODS: dict[str, type[Segmenter]] = {
     SeasonalThreshold.name: SeasonalThreshold,
 }
 
+try:  # the prominence segmenter lives in the top-level `segmentation/` package when present
+    import segmentation as _prominence_pkg  # noqa: F401
+    from .prominence_adapter import Prominence
+    METHODS[Prominence.name] = Prominence
+except ImportError:
+    pass
+
 
 def get_segmenter(name: str, **params) -> Segmenter:
     try:

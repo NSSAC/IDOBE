@@ -81,32 +81,35 @@ def write_wide(path, rows):
     with open(path, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(cols)
-        for uid, start, vals in rows:
+        for uid, start, vals, dur in rows:
             end = start + timedelta(weeks=len(vals) - 1)
-            w.writerow([uid, "ILI", "VA", "PERCENT_UNWEIGHTED", start, end, len(vals) - 2, sum(vals)]
+            w.writerow([uid, "ILI", "VA", "PERCENT_UNWEIGHTED", start, end, dur, sum(vals)]
                        + vals + [""] * (60 - len(vals)))
 
 
-def test_legacy_stitch_and_rebuild(tmp_path):
+def test_legacy_stitch_core_and_rebuild(tmp_path):
     p = tmp_path / "w.csv"
-    # Two overlapping windows (2 shared weeks, same values) and an unrelated disease.
-    write_wide(p, [(1, SAT, [1, 2, 3, 4]), (2, SAT + timedelta(weeks=2), [3, 4, 5, 6])])
+    # Row 1 is clipped at the series start (2 leading context weeks); row 2 is a full row:
+    # 4 context + 8-week duration (9 values) + 4 context = 17 values. They overlap with equal values.
+    v = [float(i) for i in range(40)]
+    write_wide(p, [(1, SAT, v[0:15], 8), (2, SAT + timedelta(weeks=10), v[10:27], 8)])
     series, segs, stats = legacy.stitch(p)
     s = series["ili__va__percent-unweighted"]
-    assert s.values == [1, 2, 3, 4, 5, 6] and stats["value_clashes"] == 0 and s.value_type == "rate"
-    assert [(g.start_date, g.end_date) for g in segs] == [(SAT, SAT + timedelta(weeks=3)),
-                                                         (SAT + timedelta(weeks=2), SAT + timedelta(weeks=5))]
+    assert s.values == v[0:27] and stats["value_clashes"] == 0 and s.value_type == "rate"
+    wk = lambda i: SAT + timedelta(weeks=i)  # noqa: E731
+    assert [(g.start_date, g.end_date) for g in segs] == [(wk(2), wk(10)), (wk(14), wk(22))]
     rows, prov, skipped = build(series, segs)
-    assert not skipped and rows[1][8:12] == [3, 4, 5, 6] and rows[1][6] == 4 and prov[1][4] == "legacy-2"
+    assert not skipped and prov[1][4] == "legacy-2"
+    assert rows[1][4:7] == [wk(10).isoformat(), wk(26).isoformat(), 8] and rows[1][8:25] == v[10:27]
+    assert rows[0][4] == SAT.isoformat() and rows[0][8:23] == v[0:15]
 
 
-def test_build_pads_and_skips_long_windows():
+def test_build_pads_and_filters_duration():
     s = Series("a", "X", "Y", "CASES", SAT, list(range(100)))
-    segs = [SegmentRow("a", "1", "m", "", SAT + timedelta(weeks=10), SAT + timedelta(weeks=12)),
-            SegmentRow("a", "2", "m", "", SAT, SAT + timedelta(weeks=70))]
-    rows, _, skipped = build({"a": s}, segs, pad=2)
-    assert len(rows) == 1 and rows[0][6] == 3 and rows[0][8:15] == [8, 9, 10, 11, 12, 13, 14]
-    assert skipped[0][0] == "2"
+    seg = lambda i, a, b: SegmentRow("a", i, "m", "", SAT + timedelta(weeks=a), SAT + timedelta(weeks=b))  # noqa: E731
+    rows, _, skipped = build({"a": s}, [seg("ok", 10, 20), seg("short", 30, 35), seg("long", 40, 95)], pad=2)
+    assert len(rows) == 1 and rows[0][6] == 10 and rows[0][8:23] == list(range(8, 23))
+    assert [k for k, _ in skipped] == ["short", "long"]
 
 
 def d(w):
@@ -149,3 +152,14 @@ def test_threshold_does_not_span_gaps():
     assert segs and all(not (s.start < 60 and s.end >= 110) for s in segs)
     assert all(any(v is not None for v in vals[s.start:s.end + 1]) for s in segs)
     assert all(not (60 <= s.start and s.end < 110) for s in segs)
+
+
+def test_prominence_adapter_if_available():
+    pytest.importorskip("segmentation")
+    from pipeline.segmentation import METHODS
+    assert "prominence" in METHODS
+    segs = get_segmenter("prominence").segment(seasonal(4))
+    check_segments(segs, 208)
+    assert len(segs) == 4
+    for k, s in enumerate(segs):
+        assert s.start < 52 * k + 26 < s.end and "trough_start" in s.info
