@@ -211,3 +211,8 @@ relegated/
 
 # respiratory pipeline
 respiratory/**/__pycache__/
+
+# Expert annotation app
+annotation/*.db
+annotation/*.db-*
+annotation/exports/

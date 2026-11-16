@@ -1,0 +1,29 @@
+# Render Blueprint for the expert annotation app (annotation/). See annotation/README.md, "Hosting".
+# Render dashboard -> New -> Blueprint -> pick this repo and branch.
+services:
+  - type: web
+    name: idobe-annotation
+    runtime: docker
+    plan: free                  # spins down after 15 min idle (~1 min to wake); 0.5c-512mb is always on
+    region: virginia
+    branch: expert-annotation-ui
+    dockerfilePath: ./annotation/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: idobe-annotation-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: TARGET_ANNOTATIONS
+        value: "3"
+
+databases:
+  - name: idobe-annotation-db
+    plan: 0.1c-256mb            # paid (~$6/month) so the data doesn't expire; "free" is deleted after 30 days
+    region: virginia
+    databaseName: idobe
+    user: idobe
+    postgresMajorVersion: "16"

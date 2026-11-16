@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IDOBE · Annotation tutorial draft</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202724; background: #f4f4f2; }
+  * { box-sizing: border-box; }
+  body { margin: 0; line-height: 1.6; }
+  header, main, footer { max-width: 900px; margin: auto; padding: 20px 24px; }
+  header { padding-top: 32px; }
+  h1 { font-size: 25px; margin: 8px 0; }
+  h2 { font-size: 23px; line-height: 1.3; margin-top: 0; }
+  h3 { font-size: 17px; }
+  .eyebrow { color: #4c635a; font-size: 13px; font-weight: 650; letter-spacing: .05em; text-transform: uppercase; }
+  .note { color: #536059; font-size: 14px; }
+  .lead { font-size: 20px; font-weight: 550; }
+  .panel { background: #fcfcfb; border: 1px solid #d9dfda; border-radius: 10px; padding: 28px; }
+  .callout { border-left: 3px solid #44735d; padding: 10px 16px; background: #edf3ee; margin: 18px 0; }
+  .steps { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 16px; }
+  .steps button { font-size: 13px; padding: 6px 10px; }
+  button, select { font: inherit; border: 1px solid #bdc9c0; background: #fcfcfb; color: #202724; border-radius: 6px; padding: 9px 14px; }
+  button { cursor: pointer; }
+  button:hover { background: #eaf0eb; }
+  button[aria-current="step"], button.primary { color: #fff; background: #285640; border-color: #285640; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  :focus-visible { outline: 3px solid #397abf; outline-offset: 3px; }
+  h2:focus { outline: none; }
+  a { color: #235d91; }
+  footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th,td { border-bottom: 1px solid #dfe4df; text-align: left; padding: 10px 8px; vertical-align: top; }
+  th { font-weight: 650; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; font-weight: 600; }
+  figure { margin: 18px 0; }
+  figure img { width: 100%; height: auto; }
+  figcaption { color: #536059; font-size: 13px; }
+  select { width: 100%; margin: 8px 0; }
+  li { margin: 8px 0; }
+  [hidden] { display: none !important; }
+  @media (max-width: 600px) {
+    header,main,footer { padding: 16px; }
+    .panel { padding: 18px; }
+    .lead { font-size: 18px; }
+    h1 { font-size: 22px; }
+    figure { overflow-x: auto; }
+    figure img { min-width: 620px; }
+  }
+  @media print {
+    .panel[hidden], .example[hidden] { display: block !important; }
+    .panel { break-before: page; border: 0; }
+    footer,.steps,select,label[for="example-choice"] { display: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">IDOBE · Expert annotation</div>
+  <h1>Recognize excess occurrence. Explain your judgment.</h1>
+  <p class="note">Tutorial draft v0.1 · For study-team review · Nothing entered here is saved.</p>
+  <nav class="steps" aria-label="Tutorial steps">
+    <button type="button" data-step="0" aria-current="step">1 · Definition</button>
+    <button type="button" data-step="1">2 · Evidence</button>
+    <button type="button" data-step="2">3 · Response</button>
+    <button type="button" data-step="3">4 · Confidence</button>
+    <button type="button" data-step="4">5 · Examples</button>
+    <button type="button" data-step="5">6 · Practice</button>
+    <button type="button" data-step="6">7 · Checklist</button>
+  </nav>
+</header>
+<main>
+  <noscript><p>This preview needs JavaScript to step through the tutorial. Read the <a href="../annotation-rubric-draft.md">full rubric draft</a> instead.</p></noscript>
+  <section class="panel" data-panel>
+    <h2 tabindex="-1">What are you judging?</h2>
+    <p class="lead">Does the evidence support disease occurrence above what is normally expected for this time, place, and population?</p>
+    <p>The starting point is the CDC definition of an outbreak. Consider the observation period, the geographic area or setting, the population covered, and a defensible expectation for that context.</p>
+    <div class="callout"><strong>Excess relative to expectation is the key.</strong> A visible peak is not sufficient. A low absolute count does not rule an outbreak out.</div>
+    <p>Two weeks is an example of a time interval, not a universal cutoff. Neither a smooth curve nor a completed decline is required.</p>
+    <p>Your annotation is a judgment of the supplied evidence, not confirmation by a public-health investigation.</p>
+    <p class="note">Definition: <a href="https://www.cdc.gov/urdo/php/surveillance/outbreak-case-definitions.html">CDC outbreak and case definitions</a>. The response rules and confidence anchors in this tutorial are proposed IDOBE guidance.</p>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Read the evidence before the curve</h2>
+    <ol>
+      <li><strong>Measure:</strong> are these cases, hospitalizations, or ILI visit percentages? They are not interchangeable.</li>
+      <li><strong>Time and place:</strong> read the dates, disease, and location. Weekly surveillance values are not necessarily illness-onset counts.</li>
+      <li><strong>Population:</strong> use the stated surveillance coverage. Do not infer a school, exposure group, or complete population from a place name.</li>
+      <li><strong>Expectation:</strong> use a credible historical, seasonal, or otherwise comparable reference. The first or lowest point is not automatically “normal.”</li>
+      <li><strong>Limitations:</strong> consider gaps, reporting changes, interpolation, and a window that cuts off part of an event.</li>
+    </ol>
+    <div class="callout">The current app does not provide an explicit expected baseline or population description. If that prevents a defensible judgment, choose <strong>Unsure</strong>. If your expertise supplies a comparator, explain its basis.</div>
+    <p>Hospitalizations and ILI percentages can be supporting signals, but their use needs a study-wide proxy policy. Do not silently interpret them as disease-case counts.</p>
+    <p class="note"><a href="https://www.cdc.gov/field-epi-manual/php/chapters/field-investigation.html">CDC field investigation guidance</a> discusses comparator periods and surveillance limitations.</p>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Choose a response</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Response</th><th>Your judgment</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Outbreak</th><td>A defensible comparator exists and the evidence favors occurrence above expectation.</td></tr>
+        <tr><th scope="row">Not an outbreak</th><td>Sufficient context supports consistency with expectation, or a documented artifact adequately explains the apparent excess.</td></tr>
+        <tr><th scope="row">Unsure</th><td>You reviewed the evidence but cannot make a defensible positive or negative judgment.</td></tr>
+        <tr><th scope="row">Skip</th><td>You are not making an assessment: outside your expertise, stopping work, or unable to inspect the item.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="callout"><strong>Unsure:</strong> “I assessed it; the evidence is indeterminate.”<br><strong>Skip:</strong> “I am not assessing it.”<br><strong>Low confidence:</strong> “I can explain my leaning, but substantial doubt remains.”</div>
+    <p>Missing context is not evidence of no outbreak. If a binary choice would be arbitrary, use Unsure.</p>
+    <p class="note">In the current app, skipped items leave your ordinary queue. Reopen them in My annotations if needed. Unsure counts toward coverage; Skip does not. Skip is not a “remind me later” action.</p>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Confidence belongs to your response</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Score</th><th>For a positive or negative judgment</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">1 · Very low</th><td>A weak but explainable leaning; major limitations could reverse it.</td></tr>
+        <tr><th scope="row">2 · Low</th><td>One interpretation is somewhat better supported; substantial doubt remains.</td></tr>
+        <tr><th scope="row">3 · Moderate</th><td>A defensible interpretation with a meaningful unresolved limitation.</td></tr>
+        <tr><th scope="row">4 · High</th><td>Clear evidence and a credible comparator; limitations are unlikely to change the label.</td></tr>
+        <tr><th scope="row">5 · Very high</th><td>Compelling evidence and an appropriate comparator; no material unresolved limitation is apparent.</td></tr>
+      </tbody>
+    </table></div>
+    <p><strong>Unsure + high confidence</strong> means you are confident the supplied evidence cannot resolve the question. It does not mean high confidence in an outbreak. Lower confidence in Unsure means you are less certain whether a directional judgment can be made.</p>
+    <p><strong>Skip has no confidence score.</strong> The scale is not a probability, severity, or case-volume scale.</p>
+    <div class="callout">Useful comment: “Compared with [reference and its basis], [evidence]. Main limitation: [missing context or alternative explanation].”</div>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Discuss real, high-confidence annotations</h2>
+    <p>These are candidate teaching examples from the local database. Each has <strong>one annotator</strong>, no source comment, and a recorded confidence of 4 or 5. They are not consensus answers.</p>
+    <p class="note">Inspect the chart, then reveal the prior label. Explanations are new draft interpretations, not the annotator’s recorded reasoning. The earlier ratings predate this rubric.</p>
+    <label for="example-choice"><strong>Choose an example</strong></label>
+    <select id="example-choice">
+      <option value="4690">A · Mozambique — a pronounced rise</option>
+      <option value="3406">B · Florida — small counts can matter</option>
+      <option value="1426">C · New Mexico — a candidate negative</option>
+      <option value="7196">D · Kansas — confidence still needs review</option>
+      <option value="9308">E · Georgia — check the outcome</option>
+      <option value="10778">F · Minnesota — percentages and seasonality</option>
+    </select>
+    <div id="examples">
+      <article class="example" data-example="4690">
+        <h3>COVID-19 · Mozambique · #4690</h3>
+        <figure><img src="examples/4690.svg" alt="Weekly COVID-19 cases in Mozambique rise sharply to 20,747 and then decline."><figcaption>Stored weekly values; no expected baseline is supplied.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Outbreak · 5/5.</strong> Annotation #39. The first eight values range from 50–296; the peak is 20,747 in the week ending January 1, 2022.</p>
+          <p>A sustained departure supports considering excess. Why are surrounding weeks a credible reference, and is reporting comparable? If those conditions hold, Outbreak is supported. Do not automatically copy the prior 5/5.</p>
+        </details>
+      </article>
+      <article class="example" data-example="3406" hidden>
+        <h3>Poliomyelitis · Florida · #3406</h3>
+        <figure><img src="examples/3406.svg" alt="Weekly poliomyelitis values in Florida begin with nine zeros and later include 4, 4, 5, and 4 cases."><figcaption>Stored weekly values; no expected baseline is supplied.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Outbreak · 4/5.</strong> Annotation #18. After nine initial zero weeks, a later four-week run is 4, 4, 5, 4.</p>
+          <p>If a near-zero expectation is credible for that historical setting, small counts can represent excess. A universal minimum count would miss this distinction.</p>
+        </details>
+      </article>
+      <article class="example" data-example="1426" hidden>
+        <h3>Poliomyelitis · New Mexico · #1426</h3>
+        <figure><img src="examples/1426.svg" alt="New Mexico poliomyelitis values range from zero to three without a pronounced sustained rise."><figcaption>Stored weekly values; no expected baseline is supplied.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Not an outbreak · 5/5.</strong> Annotation #43. Weekly values range from 0 to 3.</p>
+          <p>This is a candidate negative only if sporadic low occurrence fits a credible expectation. Few cases and no big peak are insufficient by themselves. If historical context prevents deciding, Unsure is defensible.</p>
+        </details>
+      </article>
+      <article class="example" data-example="7196" hidden>
+        <h3>Smallpox · Kansas · #7196</h3>
+        <figure><img src="examples/7196.svg" alt="Kansas smallpox values contain five weeks with one case, including four consecutive weeks, and otherwise zero."><figcaption>Stored weekly values; no expected baseline is supplied.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Not an outbreak · 5/5.</strong> Annotation #57. Five weeks have one case, including four consecutive weeks.</p>
+          <p>Use this as a discussion case, not a canonical negative. What was expected in Kansas in 1946? Were these cases linked? Do not substitute today’s disease context. With insufficient historical context, Unsure is defensible.</p>
+        </details>
+      </article>
+      <article class="example" data-example="9308" hidden>
+        <h3>COVID-19 · Georgia (GA) · #9308</h3>
+        <figure><img src="examples/9308.svg" alt="The Georgia COVID-19 hospitalization series peaks at 8,849 in January 2022."><figcaption>Hospitalizations as labeled in the source; not disease-case counts.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Outbreak · 5/5.</strong> Annotation #54. The peak is 8,849 in the week ending January 8, 2022.</p>
+          <p>This is a hospitalization signal. Its interpretation needs an appropriate comparator and the study’s proxy policy. It does not independently identify case incidence or a shared exposure.</p>
+        </details>
+      </article>
+      <article class="example" data-example="10778" hidden>
+        <h3>ILI · Minnesota · #10778</h3>
+        <figure><img src="examples/10778.svg" alt="The Minnesota unweighted ILI visit percentage peaks at 6.67769 percent in December 2012."><figcaption>Unweighted ILI visit percentage, not a case count or pathogen diagnosis.</figcaption></figure>
+        <details><summary>Reveal prior annotation and discussion</summary>
+          <p><strong>Recorded: Outbreak · 5/5.</strong> Annotation #33. The peak is 6.67769% in the week ending December 29, 2012.</p>
+          <p>Assess excess against an appropriate seasonal expectation. A winter wave alone does not establish excess. Interpret the percentage using the study’s proxy policy.</p>
+        </details>
+      </article>
+    </div>
+    <p class="note">Snapshot: October 20, 2026. <a href="examples.json">Source values and annotation provenance</a>. No annotator identities are included.</p>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Practice: Unsure, Skip, or low confidence?</h2>
+    <p>These scenarios are hypothetical. There are no Unsure or Skip examples in the current annotation snapshot.</p>
+    <details><summary>A clear rise, but seasonality could explain it and no defensible comparator is available.</summary>
+      <p><strong>Unsure.</strong> High confidence is appropriate if you are confident the missing context prevents resolution. You have reviewed the evidence and identified what is missing.</p></details>
+    <details><summary>A credible comparator exists. You lean toward real excess, but a reporting change could explain part of it.</summary>
+      <p><strong>Outbreak, confidence 1–2</strong> if you can explain why real excess is somewhat better supported. If the competing explanations cannot be distinguished, use Unsure.</p></details>
+    <details><summary>Counts appear consistent with a supplied baseline, but incomplete reporting remains a concern.</summary>
+      <p><strong>Not an outbreak, confidence 1–2</strong> if the negative interpretation is defensible and slightly better supported. Otherwise, Unsure.</p></details>
+    <details><summary>The disease or surveillance system is outside your expertise.</summary>
+      <p><strong>Skip; no confidence score.</strong> You are not making an assessment. An expertise note is helpful.</p></details>
+    <details><summary>Neither the chart nor the values table loads.</summary>
+      <p><strong>Skip; no confidence score.</strong> This is a technical obstacle. Report the problem if possible. If the table works, you may still be able to assess the item.</p></details>
+  </section>
+
+  <section class="panel" data-panel hidden>
+    <h2 tabindex="-1">Before submitting an annotation</h2>
+    <ul>
+      <li>I checked the measure, time window, place, and available population context.</li>
+      <li>I can explain the expected baseline, or I chose Unsure because I cannot.</li>
+      <li>My label concerns excess relative to expectation.</li>
+      <li>My confidence describes my selected response.</li>
+      <li>My comment explains any consequential missing context or alternative explanation.</li>
+    </ul>
+    <div class="callout"><strong>Draft review:</strong> adjudicate the example labels and comparator rationales, agree how proxy measures are used, and reserve tutorial examples outside the blinded evaluation pool before rollout.</div>
+    <p>In production, this step could offer “Begin annotation.” This preview does not start a session or save completion.</p>
+    <p><a href="../annotation-rubric-draft.md">Read the full rubric and implementation notes</a></p>
+  </section>
+</main>
+<footer>
+  <button id="previous" type="button" disabled>← Previous</button>
+  <span id="position" role="status" aria-live="polite">Step 1 of 7</span>
+  <button id="next" type="button" class="primary">Next →</button>
+</footer>
+<script>
+"use strict";
+const panels = [...document.querySelectorAll("[data-panel]")];
+const steps = [...document.querySelectorAll("[data-step]")];
+const previous = document.getElementById("previous");
+const next = document.getElementById("next");
+let current = 0;
+function showStep(index) {
+  current = Math.max(0, Math.min(panels.length - 1, index));
+  panels.forEach((panel, i) => { panel.hidden = i !== current; });
+  steps.forEach((step, i) => {
+    if (i === current) step.setAttribute("aria-current", "step");
+    else step.removeAttribute("aria-current");
+  });
+  previous.disabled = current === 0;
+  next.textContent = current === panels.length - 1 ? "Restart tutorial" : "Next →";
+  document.getElementById("position").textContent = `Step ${current + 1} of ${panels.length}`;
+  panels[current].querySelector("h2").focus();
+}
+previous.addEventListener("click", () => showStep(current - 1));
+next.addEventListener("click", () => showStep(current === panels.length - 1 ? 0 : current + 1));
+steps.forEach((step) => step.addEventListener("click", () => showStep(Number(step.dataset.step))));
+document.getElementById("example-choice").addEventListener("change", (event) => {
+  document.querySelectorAll("[data-example]").forEach((example) => {
+    example.hidden = example.dataset.example !== event.target.value;
+  });
+});
+</script>
+</body>
+</html>

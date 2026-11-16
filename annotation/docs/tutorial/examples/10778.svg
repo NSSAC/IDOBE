@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" role="img" aria-labelledby="title desc">
+<title id="title">ILI · MINNESOTA · #10778</title>
+<desc id="desc">ILI visits (%) — unweighted from 2012-08-04 to 2013-07-20. Peak 6.67769. Lines join stored weekly values; no expected baseline is supplied.</desc>
+<rect width="760" height="290" fill="#fcfcfb"/>
+<g font-family="system-ui, sans-serif" font-size="13" fill="#343a40"><text x="82" y="24">ILI visits (%) — unweighted</text>
+<path d="M 82 240.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="244.0" text-anchor="end">0</text>
+<path d="M 82 190.75 H 738" stroke="#e0e2e5"/>
+<text x="72" y="194.75" text-anchor="end">2</text>
+<path d="M 82 141.5 H 738" stroke="#e0e2e5"/>
+<text x="72" y="145.5" text-anchor="end">4</text>
+<path d="M 82 92.25 H 738" stroke="#e0e2e5"/>
+<text x="72" y="96.25" text-anchor="end">6</text>
+<path d="M 82 43.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="47.0" text-anchor="end">8</text>
+<text x="82.0" y="263" text-anchor="start">2012-08-04</text>
+<text x="305.03999999999996" y="263" text-anchor="middle">2012-12-01</text>
+<text x="514.96" y="263" text-anchor="middle">2013-03-23</text>
+<text x="738.0" y="263" text-anchor="end">2013-07-20</text>
+<text x="410.0" y="285" text-anchor="middle">Week ending (app date convention)</text></g>
+<polyline points="82.00,222.52 95.12,223.75 108.24,233.13 121.36,228.30 134.48,232.59 147.60,229.38 160.72,224.20 173.84,222.66 186.96,224.01 200.08,218.53 213.20,228.10 226.32,226.29 239.44,225.26 252.56,221.15 265.68,222.01 278.80,224.76 291.92,213.97 305.04,216.19 318.16,216.51 331.28,195.96 344.40,164.83 357.52,75.56 370.64,103.34 383.76,139.25 396.88,164.23 410.00,169.47 423.12,174.14 436.24,165.71 449.36,175.11 462.48,196.34 475.60,199.40 488.72,197.89 501.84,189.66 514.96,213.80 528.08,213.52 541.20,222.57 554.32,218.74 567.44,209.68 580.56,222.03 593.68,218.80 606.80,227.45 619.92,224.91 633.04,223.07 646.16,226.03 659.28,224.44 672.40,223.65 685.52,237.02 698.64,225.86 711.76,213.13 724.88,228.93 738.00,227.92" fill="none" stroke="#2365ad" stroke-width="2"/>
+<circle cx="82.00" cy="222.52" r="2.6" fill="#2365ad"/>
+<circle cx="95.12" cy="223.75" r="2.6" fill="#2365ad"/>
+<circle cx="108.24" cy="233.13" r="2.6" fill="#2365ad"/>
+<circle cx="121.36" cy="228.30" r="2.6" fill="#2365ad"/>
+<circle cx="134.48" cy="232.59" r="2.6" fill="#2365ad"/>
+<circle cx="147.60" cy="229.38" r="2.6" fill="#2365ad"/>
+<circle cx="160.72" cy="224.20" r="2.6" fill="#2365ad"/>
+<circle cx="173.84" cy="222.66" r="2.6" fill="#2365ad"/>
+<circle cx="186.96" cy="224.01" r="2.6" fill="#2365ad"/>
+<circle cx="200.08" cy="218.53" r="2.6" fill="#2365ad"/>
+<circle cx="213.20" cy="228.10" r="2.6" fill="#2365ad"/>
+<circle cx="226.32" cy="226.29" r="2.6" fill="#2365ad"/>
+<circle cx="239.44" cy="225.26" r="2.6" fill="#2365ad"/>
+<circle cx="252.56" cy="221.15" r="2.6" fill="#2365ad"/>
+<circle cx="265.68" cy="222.01" r="2.6" fill="#2365ad"/>
+<circle cx="278.80" cy="224.76" r="2.6" fill="#2365ad"/>
+<circle cx="291.92" cy="213.97" r="2.6" fill="#2365ad"/>
+<circle cx="305.04" cy="216.19" r="2.6" fill="#2365ad"/>
+<circle cx="318.16" cy="216.51" r="2.6" fill="#2365ad"/>
+<circle cx="331.28" cy="195.96" r="2.6" fill="#2365ad"/>
+<circle cx="344.40" cy="164.83" r="2.6" fill="#2365ad"/>
+<circle cx="357.52" cy="75.56" r="2.6" fill="#2365ad"/>
+<circle cx="370.64" cy="103.34" r="2.6" fill="#2365ad"/>
+<circle cx="383.76" cy="139.25" r="2.6" fill="#2365ad"/>
+<circle cx="396.88" cy="164.23" r="2.6" fill="#2365ad"/>
+<circle cx="410.00" cy="169.47" r="2.6" fill="#2365ad"/>
+<circle cx="423.12" cy="174.14" r="2.6" fill="#2365ad"/>
+<circle cx="436.24" cy="165.71" r="2.6" fill="#2365ad"/>
+<circle cx="449.36" cy="175.11" r="2.6" fill="#2365ad"/>
+<circle cx="462.48" cy="196.34" r="2.6" fill="#2365ad"/>
+<circle cx="475.60" cy="199.40" r="2.6" fill="#2365ad"/>
+<circle cx="488.72" cy="197.89" r="2.6" fill="#2365ad"/>
+<circle cx="501.84" cy="189.66" r="2.6" fill="#2365ad"/>
+<circle cx="514.96" cy="213.80" r="2.6" fill="#2365ad"/>
+<circle cx="528.08" cy="213.52" r="2.6" fill="#2365ad"/>
+<circle cx="541.20" cy="222.57" r="2.6" fill="#2365ad"/>
+<circle cx="554.32" cy="218.74" r="2.6" fill="#2365ad"/>
+<circle cx="567.44" cy="209.68" r="2.6" fill="#2365ad"/>
+<circle cx="580.56" cy="222.03" r="2.6" fill="#2365ad"/>
+<circle cx="593.68" cy="218.80" r="2.6" fill="#2365ad"/>
+<circle cx="606.80" cy="227.45" r="2.6" fill="#2365ad"/>
+<circle cx="619.92" cy="224.91" r="2.6" fill="#2365ad"/>
+<circle cx="633.04" cy="223.07" r="2.6" fill="#2365ad"/>
+<circle cx="646.16" cy="226.03" r="2.6" fill="#2365ad"/>
+<circle cx="659.28" cy="224.44" r="2.6" fill="#2365ad"/>
+<circle cx="672.40" cy="223.65" r="2.6" fill="#2365ad"/>
+<circle cx="685.52" cy="237.02" r="2.6" fill="#2365ad"/>
+<circle cx="698.64" cy="225.86" r="2.6" fill="#2365ad"/>
+<circle cx="711.76" cy="213.13" r="2.6" fill="#2365ad"/>
+<circle cx="724.88" cy="228.93" r="2.6" fill="#2365ad"/>
+<circle cx="738.00" cy="227.92" r="2.6" fill="#2365ad"/>
+</svg>

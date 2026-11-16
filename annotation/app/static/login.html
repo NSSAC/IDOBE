@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · IDOBE annotation</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main class="wrap">
+  <form class="card login" id="login-form" novalidate>
+    <h1>IDOBE expert annotation</h1>
+    <p>Sign in with the account you were given.</p>
+    <label for="username">Username</label>
+    <input id="username" name="username" autocomplete="username" autocapitalize="none" required autofocus>
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" autocomplete="current-password" required>
+    <button class="primary" type="submit">Sign in</button>
+    <div class="status err" id="status" role="alert"></div>
+  </form>
+</main>
+<script>
+document.getElementById("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const status = document.getElementById("status");
+  status.textContent = "";
+  const body = { username: e.target.username.value, password: e.target.password.value };
+  try {
+    const r = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (r.ok) { location.href = "/"; return; }
+    const data = await r.json().catch(() => ({}));
+    status.textContent = typeof data.detail === "string" ? data.detail : "Sign-in failed";
+  } catch {
+    status.textContent = "Can't reach the server";
+  }
+});
+</script>
+</body>
+</html>

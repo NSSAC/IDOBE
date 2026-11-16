@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" role="img" aria-labelledby="title desc">
+<title id="title">COVID-19 · MOZAMBIQUE · #4690</title>
+<desc id="desc">Weekly cases from 2021-10-02 to 2022-05-14. Peak 20747. Lines join stored weekly values; no expected baseline is supplied.</desc>
+<rect width="760" height="290" fill="#fcfcfb"/>
+<g font-family="system-ui, sans-serif" font-size="13" fill="#343a40"><text x="82" y="24">Weekly cases</text>
+<path d="M 82 240.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="244.0" text-anchor="end">0</text>
+<path d="M 82 190.75 H 738" stroke="#e0e2e5"/>
+<text x="72" y="194.75" text-anchor="end">10,000</text>
+<path d="M 82 141.5 H 738" stroke="#e0e2e5"/>
+<text x="72" y="145.5" text-anchor="end">20,000</text>
+<path d="M 82 92.25 H 738" stroke="#e0e2e5"/>
+<text x="72" y="96.25" text-anchor="end">30,000</text>
+<path d="M 82 43.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="47.0" text-anchor="end">40,000</text>
+<text x="82.0" y="263" text-anchor="start">2021-10-02</text>
+<text x="307.5" y="263" text-anchor="middle">2021-12-18</text>
+<text x="512.5" y="263" text-anchor="middle">2022-02-26</text>
+<text x="738.0" y="263" text-anchor="end">2022-05-14</text>
+<text x="410.0" y="285" text-anchor="middle">Week ending (app date convention)</text></g>
+<polyline points="82.00,238.54 102.50,239.15 123.00,239.34 143.50,239.39 164.00,239.75 184.50,239.52 205.00,239.73 225.50,239.67 246.00,239.87 266.50,238.26 287.00,232.42 307.50,216.84 328.00,176.64 348.50,137.82 369.00,152.99 389.50,193.67 410.00,222.18 430.50,233.48 451.00,237.19 471.50,238.31 492.00,238.87 512.50,239.24 533.00,239.51 553.50,239.81 574.00,239.84 594.50,239.85 615.00,239.87 635.50,239.92 656.00,239.79 676.50,239.83 697.00,239.87 717.50,239.83 738.00,239.64" fill="none" stroke="#2365ad" stroke-width="2"/>
+<circle cx="82.00" cy="238.54" r="2.6" fill="#2365ad"/>
+<circle cx="102.50" cy="239.15" r="2.6" fill="#2365ad"/>
+<circle cx="123.00" cy="239.34" r="2.6" fill="#2365ad"/>
+<circle cx="143.50" cy="239.39" r="2.6" fill="#2365ad"/>
+<circle cx="164.00" cy="239.75" r="2.6" fill="#2365ad"/>
+<circle cx="184.50" cy="239.52" r="2.6" fill="#2365ad"/>
+<circle cx="205.00" cy="239.73" r="2.6" fill="#2365ad"/>
+<circle cx="225.50" cy="239.67" r="2.6" fill="#2365ad"/>
+<circle cx="246.00" cy="239.87" r="2.6" fill="#2365ad"/>
+<circle cx="266.50" cy="238.26" r="2.6" fill="#2365ad"/>
+<circle cx="287.00" cy="232.42" r="2.6" fill="#2365ad"/>
+<circle cx="307.50" cy="216.84" r="2.6" fill="#2365ad"/>
+<circle cx="328.00" cy="176.64" r="2.6" fill="#2365ad"/>
+<circle cx="348.50" cy="137.82" r="2.6" fill="#2365ad"/>
+<circle cx="369.00" cy="152.99" r="2.6" fill="#2365ad"/>
+<circle cx="389.50" cy="193.67" r="2.6" fill="#2365ad"/>
+<circle cx="410.00" cy="222.18" r="2.6" fill="#2365ad"/>
+<circle cx="430.50" cy="233.48" r="2.6" fill="#2365ad"/>
+<circle cx="451.00" cy="237.19" r="2.6" fill="#2365ad"/>
+<circle cx="471.50" cy="238.31" r="2.6" fill="#2365ad"/>
+<circle cx="492.00" cy="238.87" r="2.6" fill="#2365ad"/>
+<circle cx="512.50" cy="239.24" r="2.6" fill="#2365ad"/>
+<circle cx="533.00" cy="239.51" r="2.6" fill="#2365ad"/>
+<circle cx="553.50" cy="239.81" r="2.6" fill="#2365ad"/>
+<circle cx="574.00" cy="239.84" r="2.6" fill="#2365ad"/>
+<circle cx="594.50" cy="239.85" r="2.6" fill="#2365ad"/>
+<circle cx="615.00" cy="239.87" r="2.6" fill="#2365ad"/>
+<circle cx="635.50" cy="239.92" r="2.6" fill="#2365ad"/>
+<circle cx="656.00" cy="239.79" r="2.6" fill="#2365ad"/>
+<circle cx="676.50" cy="239.83" r="2.6" fill="#2365ad"/>
+<circle cx="697.00" cy="239.87" r="2.6" fill="#2365ad"/>
+<circle cx="717.50" cy="239.83" r="2.6" fill="#2365ad"/>
+<circle cx="738.00" cy="239.64" r="2.6" fill="#2365ad"/>
+</svg>

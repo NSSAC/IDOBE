@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin · IDOBE annotation</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="top">
+  <h1>IDOBE annotation · Admin</h1>
+  <div class="who"><a href="/">Back to annotating</a></div>
+</header>
+<main class="wrap">
+  <div class="status err" id="status" role="alert"></div>
+  <div class="stats-grid" id="tiles"></div>
+
+  <h2>Coverage</h2>
+  <section class="card"><div class="table-wrap"><table id="coverage"></table></div></section>
+
+  <h2>Annotators</h2>
+  <section class="card"><div class="table-wrap"><table id="annotators"></table></div></section>
+
+  <h2>Users</h2>
+  <section class="card">
+    <div class="table-wrap" style="max-height:none"><table id="users"></table></div>
+    <h3 class="sub">Add a user</h3>
+    <form id="user-form" class="user-form" autocomplete="off" novalidate>
+      <label>Username<input name="username" required autocapitalize="none" spellcheck="false" placeholder="e.g. jdoe"></label>
+      <label>Password<input name="password" type="password" required autocomplete="new-password" placeholder="at least 8 characters"></label>
+      <label>Display name<input name="display_name" placeholder="optional"></label>
+      <label>Affiliation<input name="affiliation" placeholder="optional"></label>
+      <label>Expertise<input name="expertise" placeholder="optional"></label>
+      <div class="user-form-actions">
+        <label class="check"><input type="checkbox" id="show-password"> Show password</label>
+        <label class="check"><input type="checkbox" name="is_admin"> Admin</label>
+        <button class="primary" type="submit">Add user</button>
+      </div>
+    </form>
+    <div class="status" id="user-status" role="status"></div>
+  </section>
+
+  <h2>Agreement by disease</h2>
+  <section class="card"><div class="table-wrap"><table id="agreement"></table></div>
+    <p class="conf-hint">Fleiss' kappa over outbreaks with at least two non-skip labels (Outbreak / Not an outbreak / Unsure).</p>
+  </section>
+
+  <h2>Model</h2>
+  <section class="card">
+    <div class="row" style="justify-content:space-between">
+      <span id="model-status" class="conf-hint" style="font-size:14px"></span>
+      <button id="retrain">Retrain now</button>
+    </div>
+    <div class="stats-grid" id="model-tiles" style="margin-top:12px"></div>
+    <div id="model-detail" hidden>
+      <h3 class="sub">How sure is the model? <span class="conf-hint">Series by predicted probability of being an outbreak</span></h3>
+      <div class="hist" id="hist" role="img"></div>
+      <div class="hist-axis"><span>0 · not an outbreak</span><span>0.5</span><span>1 · outbreak</span></div>
+      <h3 class="sub">Series the model is least sure about <span class="conf-hint">Click to view (opens the annotate page)</span></h3>
+      <div class="table-wrap" style="max-height:none"><table id="uncertain"></table></div>
+      <h3 class="sub">Cross-validation</h3>
+      <div class="table-wrap"><table id="cv"></table></div>
+      <div id="features-block">
+        <h3 class="sub">Most influential features <span class="conf-hint">Positive pushes toward “outbreak”</span></h3>
+        <div class="table-wrap"><table id="features"></table></div>
+      </div>
+      <h3 class="sub">Training history</h3>
+      <div class="table-wrap"><table id="history"></table></div>
+    </div>
+  </section>
+
+  <h2>Export</h2>
+  <section class="card row">
+    <a class="btn" href="/api/admin/export?scope=current">Current answers (CSV)</a>
+    <a class="btn" href="/api/admin/export?scope=all">Full history incl. edits (CSV)</a>
+    <a class="btn" href="/api/admin/predictions">All series with final labels (CSV)</a>
+  </section>
+</main>
+<script src="/static/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" role="img" aria-labelledby="title desc">
+<title id="title">POLIOMYELITIS · NEW MEXICO · #1426</title>
+<desc id="desc">Weekly cases from 1945-09-08 to 1946-03-09. Peak 3. Lines join stored weekly values; no expected baseline is supplied.</desc>
+<rect width="760" height="290" fill="#fcfcfb"/>
+<g font-family="system-ui, sans-serif" font-size="13" fill="#343a40"><text x="82" y="24">Weekly cases</text>
+<path d="M 82 240.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="244.0" text-anchor="end">0</text>
+<path d="M 82 190.75 H 738" stroke="#e0e2e5"/>
+<text x="72" y="194.75" text-anchor="end">1</text>
+<path d="M 82 141.5 H 738" stroke="#e0e2e5"/>
+<text x="72" y="145.5" text-anchor="end">2</text>
+<path d="M 82 92.25 H 738" stroke="#e0e2e5"/>
+<text x="72" y="96.25" text-anchor="end">3</text>
+<path d="M 82 43.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="47.0" text-anchor="end">4</text>
+<text x="82.0" y="263" text-anchor="start">1945-09-08</text>
+<text x="309.0769230769231" y="263" text-anchor="middle">1945-11-10</text>
+<text x="510.9230769230769" y="263" text-anchor="middle">1946-01-05</text>
+<text x="738.0" y="263" text-anchor="end">1946-03-09</text>
+<text x="410.0" y="285" text-anchor="middle">Week ending (app date convention)</text></g>
+<polyline points="82.00,190.75 107.23,141.50 132.46,190.75 157.69,240.00 182.92,190.75 208.15,240.00 233.38,240.00 258.62,92.25 283.85,141.50 309.08,190.75 334.31,190.75 359.54,190.75 384.77,190.75 410.00,190.75 435.23,190.75 460.46,190.75 485.69,240.00 510.92,240.00 536.15,240.00 561.38,190.75 586.62,240.00 611.85,240.00 637.08,240.00 662.31,240.00 687.54,240.00 712.77,240.00 738.00,240.00" fill="none" stroke="#2365ad" stroke-width="2"/>
+<circle cx="82.00" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="107.23" cy="141.50" r="2.6" fill="#2365ad"/>
+<circle cx="132.46" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="157.69" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="182.92" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="208.15" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="233.38" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="258.62" cy="92.25" r="2.6" fill="#2365ad"/>
+<circle cx="283.85" cy="141.50" r="2.6" fill="#2365ad"/>
+<circle cx="309.08" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="334.31" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="359.54" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="384.77" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="410.00" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="435.23" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="460.46" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="485.69" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="510.92" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="536.15" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="561.38" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="586.62" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="611.85" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="637.08" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="662.31" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="687.54" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="712.77" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="738.00" cy="240.00" r="2.6" fill="#2365ad"/>
+</svg>

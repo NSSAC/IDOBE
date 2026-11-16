@@ -1,0 +1,13 @@
+# Only the annotation app and the outbreak CSV go into Docker builds (see annotation/Dockerfile).
+*
+!annotation/
+!raw_data/outbreaks_disease_location.csv
+!pipeline/
+pipeline/tests
+annotation/.venv
+annotation/*.db*
+annotation/exports
+annotation/.env
+**/__pycache__
+**/.pytest_cache
+**/.DS_Store

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" role="img" aria-labelledby="title desc">
+<title id="title">SMALLPOX · KANSAS · #7196</title>
+<desc id="desc">Weekly cases from 1946-03-23 to 1946-08-31. Peak 1. Lines join stored weekly values; no expected baseline is supplied.</desc>
+<rect width="760" height="290" fill="#fcfcfb"/>
+<g font-family="system-ui, sans-serif" font-size="13" fill="#343a40"><text x="82" y="24">Weekly cases</text>
+<path d="M 82 240.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="244.0" text-anchor="end">0</text>
+<path d="M 82 190.75 H 738" stroke="#e0e2e5"/>
+<text x="72" y="194.75" text-anchor="end">0.25</text>
+<path d="M 82 141.5 H 738" stroke="#e0e2e5"/>
+<text x="72" y="145.5" text-anchor="end">0.5</text>
+<path d="M 82 92.25 H 738" stroke="#e0e2e5"/>
+<text x="72" y="96.25" text-anchor="end">0.75</text>
+<path d="M 82 43.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="47.0" text-anchor="end">1</text>
+<text x="82.0" y="263" text-anchor="start">1946-03-23</text>
+<text x="310.17391304347825" y="263" text-anchor="middle">1946-05-18</text>
+<text x="509.82608695652175" y="263" text-anchor="middle">1946-07-06</text>
+<text x="738.0" y="263" text-anchor="end">1946-08-31</text>
+<text x="410.0" y="285" text-anchor="middle">Week ending (app date convention)</text></g>
+<polyline points="82.00,240.00 110.52,240.00 139.04,240.00 167.57,240.00 196.09,240.00 224.61,240.00 253.13,240.00 281.65,240.00 310.17,240.00 338.70,43.00 367.22,43.00 395.74,43.00 424.26,43.00 452.78,240.00 481.30,240.00 509.83,240.00 538.35,240.00 566.87,240.00 595.39,240.00 623.91,240.00 652.43,43.00 680.96,240.00 709.48,240.00 738.00,240.00" fill="none" stroke="#2365ad" stroke-width="2"/>
+<circle cx="82.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="110.52" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="139.04" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="167.57" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="196.09" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="224.61" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="253.13" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="281.65" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="310.17" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="338.70" cy="43.00" r="2.6" fill="#2365ad"/>
+<circle cx="367.22" cy="43.00" r="2.6" fill="#2365ad"/>
+<circle cx="395.74" cy="43.00" r="2.6" fill="#2365ad"/>
+<circle cx="424.26" cy="43.00" r="2.6" fill="#2365ad"/>
+<circle cx="452.78" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="481.30" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="509.83" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="538.35" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="566.87" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="595.39" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="623.91" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="652.43" cy="43.00" r="2.6" fill="#2365ad"/>
+<circle cx="680.96" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="709.48" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="738.00" cy="240.00" r="2.6" fill="#2365ad"/>
+</svg>

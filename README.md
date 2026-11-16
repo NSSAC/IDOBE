@@ -16,6 +16,8 @@ IDOBE is a curated collection of epidemiological time series focused on outbreak
 - `stats/stats_compute.ipynb` - notebook for computing the different statistics
 ## Baseline models
 - `baselines/src/` - folder contains different classes of models
+## Expert annotation
+- `annotation/` - web app for experts to label each outbreak series (outbreak / not an outbreak), with a database of all inputs; see `annotation/README.md`
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 

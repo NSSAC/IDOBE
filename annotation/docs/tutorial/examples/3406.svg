@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" role="img" aria-labelledby="title desc">
+<title id="title">POLIOMYELITIS · FLORIDA · #3406</title>
+<desc id="desc">Weekly cases from 1928-12-29 to 1929-08-10. Peak 5. Lines join stored weekly values; no expected baseline is supplied.</desc>
+<rect width="760" height="290" fill="#fcfcfb"/>
+<g font-family="system-ui, sans-serif" font-size="13" fill="#343a40"><text x="82" y="24">Weekly cases</text>
+<path d="M 82 240.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="244.0" text-anchor="end">0</text>
+<path d="M 82 190.75 H 738" stroke="#e0e2e5"/>
+<text x="72" y="194.75" text-anchor="end">2</text>
+<path d="M 82 141.5 H 738" stroke="#e0e2e5"/>
+<text x="72" y="145.5" text-anchor="end">4</text>
+<path d="M 82 92.25 H 738" stroke="#e0e2e5"/>
+<text x="72" y="96.25" text-anchor="end">6</text>
+<path d="M 82 43.0 H 738" stroke="#e0e2e5"/>
+<text x="72" y="47.0" text-anchor="end">8</text>
+<text x="82.0" y="263" text-anchor="start">1928-12-29</text>
+<text x="307.5" y="263" text-anchor="middle">1929-03-16</text>
+<text x="512.5" y="263" text-anchor="middle">1929-05-25</text>
+<text x="738.0" y="263" text-anchor="end">1929-08-10</text>
+<text x="410.0" y="285" text-anchor="middle">Week ending (app date convention)</text></g>
+<polyline points="82.00,240.00 102.50,240.00 123.00,240.00 143.50,240.00 164.00,240.00 184.50,240.00 205.00,240.00 225.50,240.00 246.00,240.00 266.50,215.38 287.00,215.38 307.50,215.38 328.00,240.00 348.50,215.38 369.00,240.00 389.50,141.50 410.00,141.50 430.50,116.88 451.00,141.50 471.50,215.38 492.00,240.00 512.50,215.38 533.00,240.00 553.50,190.75 574.00,240.00 594.50,240.00 615.00,240.00 635.50,240.00 656.00,240.00 676.50,240.00 697.00,240.00 717.50,240.00 738.00,240.00" fill="none" stroke="#2365ad" stroke-width="2"/>
+<circle cx="82.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="102.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="123.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="143.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="164.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="184.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="205.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="225.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="246.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="266.50" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="287.00" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="307.50" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="328.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="348.50" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="369.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="389.50" cy="141.50" r="2.6" fill="#2365ad"/>
+<circle cx="410.00" cy="141.50" r="2.6" fill="#2365ad"/>
+<circle cx="430.50" cy="116.88" r="2.6" fill="#2365ad"/>
+<circle cx="451.00" cy="141.50" r="2.6" fill="#2365ad"/>
+<circle cx="471.50" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="492.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="512.50" cy="215.38" r="2.6" fill="#2365ad"/>
+<circle cx="533.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="553.50" cy="190.75" r="2.6" fill="#2365ad"/>
+<circle cx="574.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="594.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="615.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="635.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="656.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="676.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="697.00" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="717.50" cy="240.00" r="2.6" fill="#2365ad"/>
+<circle cx="738.00" cy="240.00" r="2.6" fill="#2365ad"/>
+</svg>
