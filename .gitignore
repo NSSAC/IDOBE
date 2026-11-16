@@ -216,3 +216,6 @@ respiratory/**/__pycache__/
 annotation/*.db
 annotation/*.db-*
 annotation/exports/
+
+# Synthetic generated data (reproducible via synthetic/generate.py --seed 0)
+synthetic/output/synthetic_outbreaks.csv

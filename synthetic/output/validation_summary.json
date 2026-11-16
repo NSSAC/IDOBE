@@ -1,0 +1,32 @@
+{
+  "n_real": 9962,
+  "n_synth": 9962,
+  "ks_pass_rate_pooled": 0.125,
+  "ks_pass_rate_strata": 0.4270833333333333,
+  "strata_skipped_too_small": [
+    {
+      "stratum": "CHICKENPOX [VARICELLA]",
+      "n_real": 25,
+      "n_synth": 25
+    }
+  ],
+  "c2st": {
+    "auc_core_metrics": 0.8550421501039512,
+    "auc_all_features": 0.997269418808963,
+    "auc_null_real_vs_real": 0.50765273433565,
+    "top_features": {
+      "integer_frac": 0.4481,
+      "zero_frac": 0.0128,
+      "dlog_sd": 0.0057,
+      "PE": 0.0053,
+      "log_total": 0.0024
+    }
+  },
+  "memorization": {
+    "nn_dist_real_holdout_median": 0.0445601080933636,
+    "nn_dist_synth_median": 0.04119109718304958,
+    "real_holdout_p5": 0.01705340208259385,
+    "synth_frac_below_real_p5": 0.006324031319012246,
+    "synth_exact_copies": 0
+  }
+}
